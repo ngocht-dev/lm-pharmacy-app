@@ -1,0 +1,59 @@
+{
+  "common": {
+    "actions": {
+      "continue": "Continue",
+      "finish": "Finish",
+      "close": "Close"
+    },
+    "message": {
+      "somethingWrong": "Something wrong, please try again later"
+    }
+  },
+  "auth": {
+    "signUp": {
+      "signUpSuccessMessage": "Register successful"
+    },
+    "forgotPassword": {
+      "enterEmail": {
+        "title": "Forgot password",
+        "description": "Provide the email address associated with your account to receive OTP",
+        "invalidEmail": "Invalid email",
+        "userNotFound": "Account does not exist"
+      },
+      "verifyOTP": {
+        "description": "To recover your account, please enter OTP code we have sent to",
+        "didNotReceiveIt": "Didn’t receive it?",
+        "didNotReceiveItCount": "Didn’t receive it? Retry in <0>{{counter}}</0>",
+        "resentOtp": "Re-send OTP"
+      },
+      "updatePassword": {
+        "updatePasswordFor": "Update new password for",
+        "yourNewPassword": "New Password",
+        "reEnterNewPassword": "Re-enter New Password",
+        "passwordDoesNotMatch": "Password not match, please try again!"
+      },
+      "recoverSuccessful": {
+        "message": "Recover password successful",
+        "backToLogin": "Back to login screen in <0>{{counter}}</0>"
+      }
+    },
+    "changePassword": {
+      "title": "Change password",
+      "yourOldPassword": "Current Password"
+    }
+  },
+  "onboarding": {
+    "connectSocials": {
+      "title": "Connect your socials",
+      "description": "Connect your social account to activate your Kolfund account and get credits to spend.",
+      "viewSocialsPlatformList": "View social platform list",
+      "socialURL": "Your socials URL",
+      "addSocialAccount": "Add social account",
+      "connectASocial": "Connect a social"
+    }
+  },
+  "landing": {
+    "continueAsGuest": "Continue as Guest",
+    "loginOrSignUp": "Sign up / Sign in"
+  }
+}

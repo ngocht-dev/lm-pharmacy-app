@@ -1,8 +1,59 @@
-# Welcome to your Expo app 👋
+# LM Pharmacy App
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A React Native/Expo application for pharmacy management.
 
-## Get started
+## ESLint Configuration
+
+This project uses a comprehensive ESLint configuration optimized for React Native and Expo development.
+
+### Features
+
+- **TypeScript Support**: Full TypeScript linting with `@typescript-eslint`
+- **React Native Rules**: Specific rules for React Native development
+- **Prettier Integration**: Automatic code formatting with Prettier
+- **React Hooks**: Proper hooks linting with `eslint-plugin-react-hooks`
+- **Modern React**: Configured for React 17+ (no need for React imports in JSX)
+
+### Available Scripts
+
+```bash
+# Run ESLint with Expo's configuration
+npm run lint
+
+# Run ESLint directly with auto-fix
+npm run lint:fix
+
+# Run ESLint to check for issues (no auto-fix)
+npm run lint:check
+```
+
+### Configuration Details
+
+The ESLint configuration includes:
+
+- **React Native specific rules**: Warns about inline styles, unused styles, and platform-specific components
+- **TypeScript strict mode**: Enforces type safety while allowing flexibility for development
+- **Prettier formatting**: Ensures consistent code style across the project
+- **React Hooks rules**: Prevents common hooks mistakes
+- **Asset imports**: Allows `require()` for static assets (images, fonts, etc.)
+
+### Key Rules
+
+- `react/react-in-jsx-scope`: Disabled (not needed in React 17+)
+- `@typescript-eslint/no-require-imports`: Disabled (allows asset imports)
+- `react-native/no-inline-styles`: Warning (encourages StyleSheet usage)
+- `@typescript-eslint/no-explicit-any`: Warning (encourages proper typing)
+
+### Prettier Configuration
+
+The project includes a `.prettierrc` file with the following settings:
+
+- Single quotes
+- Semicolons enabled
+- 80 character line width
+- 2 space indentation
+
+## Development Setup
 
 1. Install dependencies
 
