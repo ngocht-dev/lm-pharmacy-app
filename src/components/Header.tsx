@@ -1,5 +1,5 @@
 import Icons from '@/assets/icons';
-import Colors from '@/constants/colors';
+import colors from '@/constants/colors';
 import { useNavigation } from '@react-navigation/native';
 import React, { memo } from 'react';
 import {
@@ -50,7 +50,7 @@ const Header = ({
             }
           }}
         >
-          {backIcon ?? <Icons.ChevronLeft stroke={Colors.mainSub2} />}
+          {backIcon ?? <Icons.ChevronLeft stroke={colors.mainSub2} />}
         </TouchableOpacity>
       ) : (
         <View style={{ width: 16 }} />
@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
     marginLeft: 12,
   },
   iconDarkMode: {
-    backgroundColor: Colors.neutral0,
+    backgroundColor: colors.neutral0,
     borderRadius: 16,
     padding: 2,
   },

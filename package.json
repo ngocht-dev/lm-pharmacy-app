@@ -11,7 +11,13 @@
     "web": "expo start --web",
     "lint": "expo lint",
     "lint:fix": "eslint src --fix",
-    "lint:check": "eslint src"
+    "lint:check": "eslint src",
+    "build:android:dev": "NODE_ENV=development expo prebuild && dotenv -- eas build --profile development --platform android --local",
+    "build:android:prod": "NODE_ENV=prod expo prebuild && dotenv -c production -- eas build --profile production --platform android --local",
+    "build:ios:dev": "NODE_ENV=development expo prebuild && dotenv -- eas build --profile development --platform ios --local",
+    "build:ios:prod": "NODE_ENV=prod expo prebuild && dotenv -c production -- eas build --profile production --platform ios --local",
+    "update:dev": "dotenv -- eas update --branch=development --auto --non-interactive",
+    "update:prod": "dotenv -c prod -- eas update --branch=production"
   },
   "dependencies": {
     "@expo/vector-icons": "^14.1.0",
@@ -58,6 +64,7 @@
     "@types/react": "~19.0.10",
     "@typescript-eslint/eslint-plugin": "^8.38.0",
     "@typescript-eslint/parser": "^8.38.0",
+    "dotenv-cli": "^9.0.0",
     "eslint": "^9.25.0",
     "eslint-config-expo": "~9.2.0",
     "eslint-plugin-prettier": "^5.5.3",
@@ -65,6 +72,7 @@
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-native": "^5.0.0",
     "prettier": "^3.6.2",
+    "react-native-svg-transformer": "^1.5.1",
     "typescript": "~5.8.3"
   },
   "private": true

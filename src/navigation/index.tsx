@@ -3,6 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
 import { Text, View } from 'react-native';
 
+import LoginScreen from '@/modules/auth/screens/LoginScreen';
 import ROUTES from './routes';
 
 // Simple HomeScreen component
@@ -20,6 +21,7 @@ export default function RootNavigation() {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Screen name={ROUTES.AUTH.LOGIN} component={LoginScreen} />
         <Stack.Screen name={ROUTES.DASHBOARD.HOME} component={HomeScreen} />
       </Stack.Navigator>
     </NavigationContainer>

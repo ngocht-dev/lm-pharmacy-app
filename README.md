@@ -53,6 +53,61 @@ The project includes a `.prettierrc` file with the following settings:
 - 80 character line width
 - 2 space indentation
 
+## Environment Setup
+
+This project uses environment variables for different configurations. Follow these steps to set up your environment:
+
+### 1. Environment Files
+
+Copy the example environment file and create your own:
+
+```bash
+cp env.example .env
+cp env.example .env.prod
+```
+
+### 2. Environment Variables
+
+Update the `.env` and `.env.prod` files with your specific values:
+
+**Development (.env):**
+
+- `APP_ENVIRONMENT=development`
+- `EXPO_PUBLIC_API_URL=https://api.lmpharmacy.dev/api`
+- `APP_NAME=LMPharmacyDev`
+
+**Production (.env.prod):**
+
+- `APP_ENVIRONMENT=production`
+- `EXPO_PUBLIC_API_URL=https://api.lmpharmacy.com/api`
+- `APP_NAME=LMPharmacy`
+
+### 3. Build Commands
+
+Use these commands to build with the correct environment:
+
+```bash
+# Development builds
+npm run build:android:dev
+npm run build:ios:dev
+
+# Production builds
+npm run build:android:prod
+npm run build:ios:prod
+
+# Updates
+npm run update:dev
+npm run update:prod
+```
+
+### 4. Configuration Usage
+
+Import the config in your components:
+
+```typescript
+import { API_URL, IS_DEVELOPMENT } from '@/constants/config';
+```
+
 ## Development Setup
 
 1. Install dependencies

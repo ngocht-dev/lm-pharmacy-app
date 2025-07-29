@@ -43,7 +43,7 @@ const ScreenContainer = ({
   return (
     <LinearGradient
       style={[styles.container, containerStyle]}
-      colors={['#FFFFFF', disableGradient ? '#FFFFFF' : '#F4EFFA']}
+      colors={['#FFFFFF', '#F4EFFA']}
       locations={[0, 0.4]}
     >
       <SafeAreaView style={[styles.innerView, style]}>
