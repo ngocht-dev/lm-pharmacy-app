@@ -3,35 +3,22 @@ import AppButton from '@/components/AppButton';
 import AppText from '@/components/AppText';
 import AppTextInput from '@/components/AppTextInput';
 import AppTouchable from '@/components/AppTouchable';
+import ErrorPopup from '@/components/ErrorPopup';
 import Gap from '@/components/Gap';
+import OverlaySpinner from '@/components/OverlaySpinner';
 import ScreenContainer from '@/components/ScreenContainer';
 import colors from '@/constants/colors';
-import React, { useState } from 'react';
+import React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
+import { useSignIn } from '../hooks';
 
 const LoginScreen = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [errors, setErrors] = useState<{ email?: string; password?: string }>(
-    {}
-  );
-
-  const onChangeField = (fieldName: string, text: string) => {
-    if (fieldName === 'email') {
-      setEmail(text);
-    } else if (fieldName === 'password') {
-      setPassword(text);
-    }
-
-    // Clear error when user starts typing
-    if (errors[fieldName as keyof typeof errors]) {
-      setErrors((prev) => ({ ...prev, [fieldName]: undefined }));
-    }
-  };
+  const { errors, message, setMessage, onChangeField, submit, isLoading } =
+    useSignIn();
 
   const handleLogin = () => {
-    // TODO: Implement login logic
-    console.log('Login with:', { email, password });
+    setMessage(''); // Clear any previous messages
+    submit();
   };
 
   const handleForgotPassword = () => {
@@ -46,6 +33,7 @@ const LoginScreen = () => {
 
   return (
     <ScreenContainer>
+      {isLoading && <OverlaySpinner />}
       <ScrollView
         style={styles.container}
         contentContainerStyle={styles.content}
@@ -53,13 +41,16 @@ const LoginScreen = () => {
         bounces={false}
         showsVerticalScrollIndicator={false}
       >
-        <View style={styles.logoContainer}>{/* <Icons.Logo /> */}</View>
+        <View style={styles.logoContainer}>
+          <Icons.Logo />
+        </View>
         <Gap />
         <AppText color={colors.neutral3} size={20}>
-          Welcome to Pharmacy
+          Welcome to
         </AppText>
         <Gap />
-        <Gap.large />
+        <Icons.LogoKolfund />
+        <Gap />
         <AppTextInput
           name="email"
           IconLeft={Icons.InputEmail}
@@ -80,13 +71,28 @@ const LoginScreen = () => {
           error={errors.password}
         />
         <Gap />
-        <AppButton text="Login" onPress={handleLogin} />
+        <AppButton
+          text={isLoading ? 'Logging in...' : 'Login'}
+          onPress={handleLogin}
+          disabled={isLoading}
+        />
+        {message && (
+          <AppText color={colors.error} size={14} style={styles.errorText}>
+            {message}
+          </AppText>
+        )}
         <Gap />
         <AppTouchable onPress={handleForgotPassword}>
           <AppText color={colors.main} size={17}>
             Forgot your password ?
           </AppText>
         </AppTouchable>
+        <View style={styles.loginSocial}>
+          {/* TODO: Add GoogleAuth and AppleOAuth components when ready */}
+          <AppText color={colors.neutral3} size={14}>
+            Social login coming soon...
+          </AppText>
+        </View>
       </ScrollView>
       <AppTouchable activeOpacity={0.8} onPress={handleSignUp}>
         <AppText style={styles.bottomText}>
@@ -95,6 +101,11 @@ const LoginScreen = () => {
         </AppText>
       </AppTouchable>
       <AppText style={styles.centerText}>v1.0.0</AppText>
+      <ErrorPopup
+        show={Boolean(message)}
+        message={message}
+        onClose={() => setMessage('')}
+      />
     </ScreenContainer>
   );
 };
@@ -126,5 +137,9 @@ const styles = StyleSheet.create({
   },
   loginSocial: {
     flexDirection: 'row',
+  },
+  errorText: {
+    textAlign: 'center',
+    marginTop: 8,
   },
 });
