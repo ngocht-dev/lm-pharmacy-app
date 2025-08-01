@@ -39,7 +39,6 @@ const useSignIn = () => {
           password: values.password,
         });
 
-        console.log('khanh result', result);
         if (result) {
           const { access_token, refresh_token } = result;
 
