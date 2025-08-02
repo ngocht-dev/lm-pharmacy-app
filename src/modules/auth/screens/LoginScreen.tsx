@@ -9,12 +9,14 @@ import OverlaySpinner from '@/components/OverlaySpinner';
 import ScreenContainer from '@/components/ScreenContainer';
 import colors from '@/constants/colors';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { useSignIn } from '../hooks';
 
 const LoginScreen = () => {
   const { errors, message, setMessage, onChangeField, submit, isLoading } =
     useSignIn();
+  const { t } = useTranslation();
 
   const handleLogin = () => {
     setMessage(''); // Clear any previous messages
@@ -46,7 +48,7 @@ const LoginScreen = () => {
         </View>
         <Gap />
         <AppText color={colors.neutral3} size={20}>
-          Welcome to
+          {t('common.welcome')}
         </AppText>
         <Gap />
         <Icons.LogoKolfund />
@@ -54,7 +56,7 @@ const LoginScreen = () => {
         <AppTextInput
           name="email"
           IconLeft={Icons.InputEmail}
-          placeholder="Email Address"
+          placeholder={t('auth.email')}
           keyboardType="email-address"
           autoCapitalize="none"
           onChangeField={onChangeField}
@@ -64,7 +66,7 @@ const LoginScreen = () => {
         <AppTextInput
           name="password"
           IconLeft={Icons.InputPassword}
-          placeholder="Password"
+          placeholder={t('auth.password')}
           autoCapitalize="none"
           secureTextEntry
           onChangeField={onChangeField}
@@ -72,7 +74,7 @@ const LoginScreen = () => {
         />
         <Gap />
         <AppButton
-          text={isLoading ? 'Logging in...' : 'Login'}
+          text={isLoading ? t('common.logging_in') : t('auth.sign_in')}
           onPress={handleLogin}
           disabled={isLoading}
         />
@@ -84,23 +86,23 @@ const LoginScreen = () => {
         <Gap />
         <AppTouchable onPress={handleForgotPassword}>
           <AppText color={colors.main} size={17}>
-            Forgot your password ?
+            {t('auth.forgot_password')}
           </AppText>
         </AppTouchable>
         <View style={styles.loginSocial}>
           {/* TODO: Add GoogleAuth and AppleOAuth components when ready */}
           <AppText color={colors.neutral3} size={14}>
-            Social login coming soon...
+            {t('common.social_login_coming_soon')}
           </AppText>
         </View>
       </ScrollView>
       <AppTouchable activeOpacity={0.8} onPress={handleSignUp}>
         <AppText style={styles.bottomText}>
-          Don&apos;t have an account?{' '}
-          <AppText color={colors.main}>Create new account</AppText>
+          {t('auth.dont_have_account')}{' '}
+          <AppText color={colors.main}>{t('auth.sign_up')}</AppText>
         </AppText>
       </AppTouchable>
-      <AppText style={styles.centerText}>v1.0.0</AppText>
+      <AppText style={styles.centerText}>{t('common.version')}</AppText>
       <ErrorPopup
         show={Boolean(message)}
         message={message}

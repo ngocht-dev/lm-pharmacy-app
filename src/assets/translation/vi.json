@@ -1,54 +1,38 @@
 {
   "common": {
-    "actions": {
-      "continue": "Continue",
-      "close": "Close"
-    },
-    "message": {
-      "somethingWrong": "Something wrong, please try again later"
-    }
+    "search": "Tìm kiếm",
+    "search_placeholder": "Tìm kiếm sản phẩm",
+    "search_products": "Tìm kiếm sản phẩm",
+    "account": "Tài khoản",
+    "cart": "Giỏ hàng",
+    "home": "Trang chủ",
+    "orders": "Đơn hàng",
+    "categories": "Danh mục",
+    "product_categories": "Danh mục sản phẩm",
+    "welcome": "Chào mừng đến với",
+    "logging_in": "Đang đăng nhập...",
+    "social_login_coming_soon": "Đăng nhập bằng mạng xã hội sắp có...",
+    "version": "v1.0.0"
   },
   "auth": {
-    "signUp": {
-      "signUpSuccessMessage": "Register successful"
-    },
-    "forgotPassword": {
-      "enterEmail": {
-        "title": "Forgot password",
-        "description": "Provide the email address associated with your account to receive OTP",
-        "invalidEmail": "Invalid email",
-        "userNotFound": "Account does not exist"
-      },
-      "verifyOTP": {
-        "description": "To recover your account, please enter OTP code we have sent to",
-        "didNotReceiveIt": "Didn’t receive it?",
-        "didNotReceiveItCount": "Didn’t receive it? Retry in <0>{{counter}}</0>",
-        "resentOtp": "Re-send OTP"
-      },
-      "updatePassword": {
-        "updatePasswordFor": "Update new password for",
-        "yourNewPassword": "New Password",
-        "reEnterNewPassword": "Re-enter New Password",
-        "passwordDoesNotMatch": "Password not match, please try again!"
-      },
-      "recoverSuccessful": {
-        "message": "Recover password successful",
-        "backToLogin": "Back to login screen in <0>{{counter}}</0>"
-      }
-    },
-    "changePassword": {
-      "title": "Change password",
-      "yourOldPassword": "Current Password"
-    }
+    "login": "Đăng nhập",
+    "email": "Địa chỉ Email",
+    "password": "Mật khẩu",
+    "sign_in": "Đăng nhập",
+    "forgot_password": "Quên mật khẩu?",
+    "dont_have_account": "Chưa có tài khoản?",
+    "sign_up": "Tạo tài khoản mới"
   },
-  "onboarding": {
-    "connectSocials": {
-      "title": "Connect your socials",
-      "description": "Connect your social account to activate your Kolfund account and get credits to spend.",
-      "viewSocialsPlatformList": "View social platform list",
-      "socialURL": "Your socials URL",
-      "addSocialAccount": "Add social account",
-      "connectASocial": "Connect a social"
-    }
+  "dashboard": {
+    "home": "Trang chủ",
+    "orders": "Đơn hàng",
+    "account": "Tài khoản",
+    "search_placeholder": "Tìm kiếm sản phẩm",
+    "product_categories": "Danh mục sản phẩm"
+  },
+  "navigation": {
+    "home": "Trang chủ",
+    "orders": "Đơn hàng",
+    "account": "Tài khoản"
   }
 }

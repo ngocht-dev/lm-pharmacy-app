@@ -1,29 +1,33 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
-import { Text, View } from 'react-native';
 
+import { useAuthStatus } from '@/modules/auth/hooks';
 import LoginScreen from '@/modules/auth/screens/LoginScreen';
+import BottomTabNavigator from './BottomTabNavigator';
 import ROUTES from './routes';
+import { RootStackParamList } from './types';
 
-// Simple HomeScreen component
-function HomeScreen() {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Home Screen</Text>
-    </View>
-  );
-}
+export const Stack = createStackNavigator<RootStackParamList>();
 
-const Stack = createStackNavigator();
+function RootNavigation() {
+  const { isAuthenticated } = useAuthStatus();
 
-export default function RootNavigation() {
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name={ROUTES.AUTH.LOGIN} component={LoginScreen} />
-        <Stack.Screen name={ROUTES.DASHBOARD.HOME} component={HomeScreen} />
+      <Stack.Navigator
+        screenOptions={{
+          headerShown: false,
+        }}
+      >
+        {isAuthenticated ? (
+          <Stack.Screen name="Dashboard" component={BottomTabNavigator} />
+        ) : (
+          <Stack.Screen name={ROUTES.AUTH.LOGIN} component={LoginScreen} />
+        )}
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
+
+export default RootNavigation;

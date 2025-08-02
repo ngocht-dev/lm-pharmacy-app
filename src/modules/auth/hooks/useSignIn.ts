@@ -17,7 +17,7 @@ const useSignIn = () => {
   const { errors, onChangeField, submit } = useForm(
     {
       email: {
-        validator: (text: string) => {
+        validator: () => {
           //   const isValid = validateEmail(text);
           //   if (!isValid) {
           //     return 'Please enter a valid email address';
@@ -52,13 +52,15 @@ const useSignIn = () => {
               refresh_token
             );
 
-            // Navigate to main app after successful login
-            console.log('Login successful, navigating to main app');
-            // navigation.navigate('MainApp' as never);
+            // Reset to dashboard after successful login
+            console.log('Login successful, resetting to dashboard');
+            navigation.reset({
+              index: 0,
+              routes: [{ name: 'Dashboard' }],
+            });
           } else {
             setMessage('Login failed. Invalid response from server.');
           }
-        } else {
           setMessage('Login failed. Please try again.');
         }
       } catch {

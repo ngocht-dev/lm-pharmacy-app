@@ -72,12 +72,12 @@ export async function GET<T = undefined>(
   options?: AxiosRequestConfig
 ): Promise<ReponseBase<T>> {
   return axiosIntance
-    .get<ReponseBase<T>>(path, { params, ...options })
+    .get<T>(path, { params, ...options })
     .then((res) => ({
       status: true,
-      statusCode: res.data.statusCode,
-      data: res.data.data,
-      message: res.data.message,
+      statusCode: res.status,
+      data: res.data,
+      message: undefined,
     }))
     .catch((err: AxiosError) => {
       const data = err.response?.data as any;
