@@ -3,32 +3,36 @@ import AppText from '@/components/AppText';
 import AppTouchable from '@/components/AppTouchable';
 import colors from '@/constants/colors';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 interface SearchHeaderProps {
-  onSearch: (text: string) => void;
   onAccountPress: () => void;
   onCartPress: () => void;
   cartCount?: number;
 }
 
 const HomeHeader = ({
-  onSearch,
   onAccountPress,
   onCartPress,
   cartCount = 0,
 }: SearchHeaderProps) => {
   const insets = useSafeAreaInsets();
+  const navigation = useNavigation();
   const { t } = useTranslation();
+
+  const handleSearchPress = () => {
+    navigation.navigate('ProductScreen' as never);
+  };
 
   return (
     <View style={[styles.container, { paddingTop: insets.top + 12 }]}>
       <View style={styles.headerRow}>
         <View style={styles.searchContainer}>
-          <AppTouchable style={styles.searchBar} onPress={() => onSearch('')}>
+          <AppTouchable style={styles.searchBar} onPress={handleSearchPress}>
             <Icons.Search />
             <AppText style={styles.searchText}>
               {t('dashboard.search_placeholder')}

@@ -1,6 +1,7 @@
 import AppText from '@/components/AppText';
 import colors from '@/constants/colors';
 import { Ionicons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Dimensions, StyleSheet, TouchableOpacity, View } from 'react-native';
@@ -10,10 +11,11 @@ const { width } = Dimensions.get('window');
 
 interface CategoryGridProps {
   categories: Category[];
-  onCategoryPress: (category: Category) => void;
+  onCategoryPress?: (category: Category) => void;
 }
 
 const CategoryGrid = ({ categories, onCategoryPress }: CategoryGridProps) => {
+  const navigation = useNavigation();
   const { t } = useTranslation();
 
   // Mock category icons - matching the screenshot
@@ -39,11 +41,22 @@ const CategoryGrid = ({ categories, onCategoryPress }: CategoryGridProps) => {
     'medical-outline', // Kẹo - Hàn Quốc
   ];
 
+  const handleCategoryPress = (category: Category) => {
+    if (onCategoryPress) {
+      onCategoryPress(category);
+    } else {
+      navigation.navigate('ProductScreen' as any, {
+        categoryId: category.id,
+        searchQuery: category.name,
+      });
+    }
+  };
+
   const renderCategoryItem = (category: Category, index: number) => (
     <TouchableOpacity
       key={category.id}
       style={styles.categoryItem}
-      onPress={() => onCategoryPress(category)}
+      onPress={() => handleCategoryPress(category)}
     >
       <View style={styles.categoryIconContainer}>
         <Ionicons

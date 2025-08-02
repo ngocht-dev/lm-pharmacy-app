@@ -19,10 +19,6 @@ const HomeScreen = () => {
     'https://dummyimage.com/400x200/7f58ad/ffffff&text=Product+3',
   ];
 
-  const handleSearch = (text: string) => {
-    console.log('Search:', text);
-  };
-
   const handleAccountPress = () => {
     console.log('Account pressed');
   };
@@ -46,7 +42,6 @@ const HomeScreen = () => {
   return (
     <View style={styles.container}>
       <HomeHeader
-        onSearch={handleSearch}
         onAccountPress={handleAccountPress}
         onCartPress={handleCartPress}
         cartCount={cartCount}

@@ -7,6 +7,9 @@ const ROUTES = {
     ORDERS: 'OrdersScreen',
     ACCOUNT: 'AccountScreen',
   },
+  PRODUCTS: {
+    LIST: 'ProductScreen',
+  },
 } as const;
 
 export default ROUTES;

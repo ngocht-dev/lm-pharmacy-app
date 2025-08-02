@@ -13,9 +13,21 @@ export type DashboardTabParamList = {
   AccountScreen: undefined;
 };
 
+// Products Stack Param List
+export type ProductsParamList = {
+  ProductScreen: {
+    searchQuery?: string;
+    categoryId?: number;
+  };
+};
+
 // Root Stack Param List
 export type RootStackParamList = {
   Dashboard: NavigatorScreenParams<DashboardTabParamList>;
+  ProductScreen: {
+    searchQuery?: string;
+    categoryId?: number;
+  };
 } & AuthParamList;
 
 // Screen Props Types

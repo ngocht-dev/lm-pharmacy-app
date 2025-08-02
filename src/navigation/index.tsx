@@ -4,6 +4,7 @@ import React from 'react';
 
 import { useAuthStatus } from '@/modules/auth/hooks';
 import LoginScreen from '@/modules/auth/screens/LoginScreen';
+import ProductScreen from '@/modules/product/screens/ProductScreen';
 import BottomTabNavigator from './BottomTabNavigator';
 import ROUTES from './routes';
 import { RootStackParamList } from './types';
@@ -21,7 +22,10 @@ function RootNavigation() {
         }}
       >
         {isAuthenticated ? (
-          <Stack.Screen name="Dashboard" component={BottomTabNavigator} />
+          <>
+            <Stack.Screen name="Dashboard" component={BottomTabNavigator} />
+            <Stack.Screen name="ProductScreen" component={ProductScreen} />
+          </>
         ) : (
           <Stack.Screen name={ROUTES.AUTH.LOGIN} component={LoginScreen} />
         )}
