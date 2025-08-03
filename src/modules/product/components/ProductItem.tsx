@@ -24,24 +24,75 @@ interface ProductItemProps {
 }
 
 const ProductItem = ({ product, onAddToCart }: ProductItemProps) => {
+  // Ensure all text values are strings with better error handling
+  const safeText = (value: any): string => {
+    try {
+      if (value === null || value === undefined) return '';
+      if (typeof value === 'string') return value;
+      if (typeof value === 'number') return value.toString();
+      if (typeof value === 'boolean') return value.toString();
+      return String(value);
+    } catch (error) {
+      console.warn('Error converting value to string:', value, error);
+      return '';
+    }
+  };
+
+  // Additional safety check for product
+  if (!product) {
+    console.warn('ProductItem: No product provided');
+    return null;
+  }
+
+  // Pre-convert all text values to ensure they're strings
+  const safeProduct = {
+    id: safeText(product.id),
+    name: safeText(product.name),
+    image: safeText(product.image),
+    price: safeText(product.price),
+    originalPrice: product.originalPrice
+      ? safeText(product.originalPrice)
+      : undefined,
+    discount: product.discount ? safeText(product.discount) : undefined,
+    rating: product.rating || 0,
+    soldCount: safeText(product.soldCount),
+    weight: product.weight ? safeText(product.weight) : undefined,
+    ageRange: product.ageRange ? safeText(product.ageRange) : undefined,
+    inCart: product.inCart || 0,
+  };
+
+  // Debug log to see what data we're getting
+  console.log('ProductItem render:', {
+    id: safeProduct.id,
+    name: safeProduct.name,
+    price: safeProduct.price,
+    soldCount: safeProduct.soldCount,
+    inCart: safeProduct.inCart,
+  });
+
   return (
     <View style={styles.productItem}>
       <View style={styles.productImageContainer}>
-        <Image source={{ uri: product.image }} style={styles.productImage} />
-        {product.weight && (
+        <Image
+          source={{ uri: safeProduct.image }}
+          style={styles.productImage}
+        />
+        {safeProduct.weight && (
           <View style={styles.weightTag}>
             <AppText size={10} color={colors.white}>
-              {product.weight}
+              {safeProduct.weight}
             </AppText>
-            <AppText size={10} color={colors.white}>
-              {product.ageRange}
-            </AppText>
+            {safeProduct.ageRange && (
+              <AppText size={10} color={colors.white}>
+                {safeProduct.ageRange}
+              </AppText>
+            )}
           </View>
         )}
-        {product.discount && (
+        {safeProduct.discount && (
           <View style={styles.discountTag}>
             <AppText size={10} color={colors.white}>
-              {product.discount}
+              {safeProduct.discount}
             </AppText>
           </View>
         )}
@@ -54,7 +105,7 @@ const ProductItem = ({ product, onAddToCart }: ProductItemProps) => {
           style={styles.productName}
           numberOfLines={3}
         >
-          {product.name}
+          {safeProduct.name}
         </AppText>
 
         <View style={styles.ratingContainer}>
@@ -64,20 +115,20 @@ const ProductItem = ({ product, onAddToCart }: ProductItemProps) => {
         </View>
 
         <AppText size={10} color={colors.neutral3} style={styles.soldCount}>
-          {product.soldCount}
+          {safeProduct.soldCount}
         </AppText>
 
         <View style={styles.priceContainer}>
           <AppText size={14} color={colors.error} style={styles.price}>
-            {product.price}
+            {safeProduct.price}
           </AppText>
-          {product.originalPrice && (
+          {safeProduct.originalPrice && (
             <AppText
               size={12}
               color={colors.neutral3}
               style={styles.originalPrice}
             >
-              {product.originalPrice}
+              {safeProduct.originalPrice}
             </AppText>
           )}
         </View>
@@ -85,17 +136,17 @@ const ProductItem = ({ product, onAddToCart }: ProductItemProps) => {
 
       <TouchableOpacity
         style={styles.addToCartButton}
-        onPress={() => onAddToCart(product.id)}
+        onPress={() => onAddToCart(safeProduct.id)}
       >
         <MaterialCommunityIcons
           name="cart-outline"
           size={20}
           color={colors.main}
         />
-        {product.inCart && product.inCart > 0 && (
+        {safeProduct.inCart > 0 && (
           <View style={styles.cartBadge}>
             <AppText size={8} color={colors.white}>
-              {product.inCart}
+              {String(safeProduct.inCart)}
             </AppText>
           </View>
         )}

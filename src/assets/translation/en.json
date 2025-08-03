@@ -46,5 +46,15 @@
     "privacy_policy": "Privacy Policy",
     "delete_account": "Delete account",
     "log_out": "Log out"
+  },
+  "product": {
+    "search_placeholder": "Search products",
+    "no_products": "No products available",
+    "no_products_subtitle": "Try searching with different keywords",
+    "popular": "Popular",
+    "newest": "Newest",
+    "price": "Price",
+    "sold": "Sold",
+    "add_to_cart": "Add to cart"
   }
 }

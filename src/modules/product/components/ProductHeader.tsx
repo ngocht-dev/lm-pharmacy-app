@@ -26,6 +26,9 @@ const ProductHeader = ({
     onSearchChange(text);
   };
 
+  // Ensure cartCount is a string
+  const safeCartCount = cartCount ? String(cartCount) : '';
+
   return (
     <LinearGradient
       colors={['#4A90E2', '#7B68EE']}
@@ -52,7 +55,7 @@ const ProductHeader = ({
           {cartCount > 0 && (
             <View style={styles.cartBadge}>
               <AppText size={8} color={colors.white}>
-                {cartCount}
+                {safeCartCount}
               </AppText>
             </View>
           )}

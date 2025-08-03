@@ -46,5 +46,15 @@
     "privacy_policy": "Chính sách bảo mật",
     "delete_account": "Xóa tài khoản",
     "log_out": "Đăng xuất"
+  },
+  "product": {
+    "search_placeholder": "Tìm kiếm sản phẩm",
+    "no_products": "Không có sản phẩm nào",
+    "no_products_subtitle": "Hãy thử tìm kiếm với từ khóa khác",
+    "popular": "Phổ biến",
+    "newest": "Mới nhất",
+    "price": "Giá",
+    "sold": "Đã bán",
+    "add_to_cart": "Thêm vào giỏ"
   }
 }

@@ -1,4 +1,5 @@
 import storageKeys from '@/constants/storageKeys';
+import { setGlobalAccessToken } from '@/services';
 import storage from '@/utils/storage';
 import { useAuthStore } from './appStore';
 
@@ -12,6 +13,8 @@ export const checkAuthStatus = async () => {
     const refreshToken = await storage.getSecureItem(storageKeys.REFRESH_TOKEN);
 
     if (accessToken && refreshToken) {
+      // Set the global access token for axios requests
+      setGlobalAccessToken(accessToken);
       setAuthenticated(true);
     } else {
       setAuthenticated(false);

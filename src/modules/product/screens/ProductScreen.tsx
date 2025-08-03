@@ -1,76 +1,22 @@
+import AppText from '@/components/AppText';
 import colors from '@/constants/colors';
 import React, { useState } from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { useTranslation } from 'react-i18next';
+import { ActivityIndicator, FlatList, StyleSheet, View } from 'react-native';
 import {
   FilterButtons,
   FilterTabs,
   ProductHeader,
   ProductItem,
 } from '../components';
-
-interface Product {
-  id: string;
-  name: string;
-  image: string;
-  price: string;
-  originalPrice?: string;
-  discount?: string;
-  rating: number;
-  soldCount: string;
-  weight?: string;
-  ageRange?: string;
-  inCart?: number;
-}
+import { useProducts } from '../hooks';
 
 const ProductScreen = ({ navigation }: any) => {
   const [searchText, setSearchText] = useState('');
   const [selectedTab, setSelectedTab] = useState('popular');
 
-  // Mock product data based on screenshot
-  const products: Product[] = [
-    {
-      id: '1',
-      name: 'Sữa chua Vinamilk Love Yogurt Green Farm Ít',
-      image: 'https://dummyimage.com/150x150/90ee90/ffffff&text=Vinamilk',
-      price: '28.000₫',
-      rating: 5,
-      soldCount: 'Đã bán 20K+',
-    },
-    {
-      id: '2',
-      name: 'Sữa dê Hikid 650g (1-9 tuổi)',
-      image: 'https://dummyimage.com/150x150/ffd700/ffffff&text=Hikid',
-      price: '650.000₫',
-      rating: 5,
-      soldCount: 'Đã bán 50K+',
-      weight: '650 gr',
-      ageRange: '1-9 tuổi',
-      inCart: 1,
-    },
-    {
-      id: '3',
-      name: 'Sữa NAN SUPREME PRO số 3 800g (2-6 tuổi)',
-      image: 'https://dummyimage.com/150x150/ffd700/ffffff&text=NAN+3',
-      price: '538.200₫',
-      originalPrice: '585.000₫',
-      discount: '-8%',
-      rating: 5,
-      soldCount: 'Đã bán 100K+',
-      weight: '800 gr',
-      ageRange: '2-6 tuổi',
-    },
-    {
-      id: '4',
-      name: 'Sữa NAN SUPREME PRO số 2 800g (12-24 tháng)',
-      image: 'https://dummyimage.com/150x150/ffd700/ffffff&text=NAN+2',
-      price: '655.000₫',
-      rating: 5,
-      soldCount: 'Đã bán 50',
-      weight: '800 g',
-      ageRange: '1-2 tuổi',
-      inCart: 3,
-    },
-  ];
+  const { data: products, isLoading, refetch } = useProducts();
+  const { t } = useTranslation();
 
   const handleBack = () => {
     navigation.goBack();
@@ -98,6 +44,87 @@ const ProductScreen = ({ navigation }: any) => {
     // TODO: Implement filter logic
   };
 
+  // Transform API data to match ProductItem interface
+  const transformedProducts =
+    products?.map((product) => {
+      const transformed = {
+        id: product.id.toString(),
+        name: product.name,
+        image:
+          product.thumbnail_url ||
+          'https://dummyimage.com/150x150/90ee90/ffffff&text=Product',
+        price: `${parseInt(product.sale_price).toLocaleString()}₫`,
+        originalPrice:
+          product.cost_price !== product.sale_price
+            ? `${parseInt(product.cost_price).toLocaleString()}₫`
+            : undefined,
+        discount:
+          product.cost_price !== product.sale_price
+            ? `-${Math.round(
+                ((parseInt(product.cost_price) - parseInt(product.sale_price)) /
+                  parseInt(product.cost_price)) *
+                  100
+              )}%`
+            : undefined,
+        rating: 5, // Default rating since API doesn't provide it
+        soldCount: `Đã bán ${product.sold_amount}`,
+        weight: product.weight
+          ? `${product.weight} ${product.weight_unit}`
+          : undefined,
+        ageRange: product.packaging || undefined,
+        inCart: 0, // Default cart count
+      };
+
+      console.log('Transformed product:', transformed);
+      return transformed;
+    }) || [];
+
+  const renderProductItem = ({ item }: { item: any }) => (
+    <ProductItem product={item} onAddToCart={handleAddToCart} />
+  );
+
+  const renderHeader = () => (
+    <>
+      <FilterTabs selectedTab={selectedTab} onTabPress={handleTabPress} />
+      <FilterButtons />
+    </>
+  );
+
+  const renderLoadingFooter = () => {
+    if (!isLoading) return null;
+    return (
+      <View style={styles.loadingFooter}>
+        <ActivityIndicator size="large" color={colors.main} />
+      </View>
+    );
+  };
+
+  const renderEmptyState = () => {
+    if (isLoading) return null;
+    return (
+      <View style={styles.emptyState}>
+        <AppText
+          size={16}
+          color={colors.neutral3}
+          style={styles.emptyStateText}
+        >
+          {t('product.no_products')}
+        </AppText>
+        <AppText
+          size={14}
+          color={colors.neutral3}
+          style={styles.emptyStateSubtext}
+        >
+          {t('product.no_products_subtitle')}
+        </AppText>
+      </View>
+    );
+  };
+
+  const onRefresh = () => {
+    refetch();
+  };
+
   return (
     <View style={[styles.container]}>
       <ProductHeader
@@ -108,24 +135,24 @@ const ProductScreen = ({ navigation }: any) => {
         cartCount={7}
       />
 
-      <FilterTabs selectedTab={selectedTab} onTabPress={handleTabPress} />
-
-      <FilterButtons />
-
-      <ScrollView
-        style={styles.productList}
+      <FlatList
+        data={transformedProducts}
+        renderItem={renderProductItem}
+        keyExtractor={(item) => item.id}
+        numColumns={2}
+        columnWrapperStyle={styles.productRow}
+        contentContainerStyle={styles.productList}
+        ListHeaderComponent={renderHeader}
+        ListFooterComponent={renderLoadingFooter}
+        ListEmptyComponent={renderEmptyState}
         showsVerticalScrollIndicator={false}
-      >
-        <View style={styles.productGrid}>
-          {products.map((product) => (
-            <ProductItem
-              key={product.id}
-              product={product}
-              onAddToCart={handleAddToCart}
-            />
-          ))}
-        </View>
-      </ScrollView>
+        initialNumToRender={10}
+        maxToRenderPerBatch={10}
+        windowSize={10}
+        removeClippedSubviews={true}
+        refreshing={isLoading}
+        onRefresh={onRefresh}
+      />
     </View>
   );
 };
@@ -138,11 +165,26 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
   },
   productList: {
-    flex: 1,
-  },
-  productGrid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
     paddingHorizontal: 8,
+    flexGrow: 1,
+  },
+  productRow: {
+    justifyContent: 'space-between',
+  },
+  loadingFooter: {
+    paddingVertical: 20,
+    alignItems: 'center',
+  },
+  emptyState: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingVertical: 50,
+  },
+  emptyStateText: {
+    marginBottom: 8,
+  },
+  emptyStateSubtext: {
+    marginTop: 4,
   },
 });
