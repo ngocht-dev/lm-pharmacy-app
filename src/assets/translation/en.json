@@ -1,18 +1,19 @@
 {
+  "checkout": {
+    "my_cart": "My Cart",
+    "empty_cart_title": "Your cart is empty",
+    "empty_cart_subtitle": "Add some products to your cart to get started",
+    "remove_item_title": "Remove Item",
+    "remove_item_message": "Are you sure you want to remove this item from your cart?",
+    "discount_code": "Discount Code",
+    "enter_discount_code": "Enter discount code",
+    "apply": "Apply",
+    "total": "Total",
+    "checkout": "Checkout"
+  },
   "common": {
-    "search": "Search",
-    "search_placeholder": "Search for items",
-    "search_products": "Search products",
-    "account": "Account",
-    "cart": "Cart",
-    "home": "Home",
-    "orders": "Orders",
-    "categories": "Categories",
-    "product_categories": "Product Categories",
-    "welcome": "Welcome to",
-    "logging_in": "Logging in...",
-    "social_login_coming_soon": "Social login coming soon...",
-    "version": "v1.0.0"
+    "cancel": "Cancel",
+    "remove": "Remove"
   },
   "auth": {
     "login": "Login",

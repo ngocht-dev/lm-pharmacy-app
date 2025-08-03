@@ -1,8 +1,15 @@
+import { useCartStore } from '@/app/cartStore';
 import AppText from '@/components/AppText';
 import colors from '@/constants/colors';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import React from 'react';
-import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
+import {
+  Dimensions,
+  Image,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 
 interface Product {
   id: string;
@@ -15,16 +22,17 @@ interface Product {
   soldCount: string;
   weight?: string;
   ageRange?: string;
-  inCart?: number;
+  inCart: number;
 }
 
 interface ProductItemProps {
   product: Product;
-  onAddToCart: (productId: string) => void;
+  onAddToCart?: (productId: string) => void;
 }
 
 const ProductItem = ({ product, onAddToCart }: ProductItemProps) => {
-  // Ensure all text values are strings with better error handling
+  const { addToCart, getItemQuantity } = useCartStore();
+
   const safeText = (value: any): string => {
     try {
       if (value === null || value === undefined) return '';
@@ -37,12 +45,6 @@ const ProductItem = ({ product, onAddToCart }: ProductItemProps) => {
       return '';
     }
   };
-
-  // Additional safety check for product
-  if (!product) {
-    console.warn('ProductItem: No product provided');
-    return null;
-  }
 
   const safeProduct = {
     id: safeText(product.id),
@@ -57,7 +59,20 @@ const ProductItem = ({ product, onAddToCart }: ProductItemProps) => {
     soldCount: safeText(product.soldCount),
     weight: product.weight ? safeText(product.weight) : undefined,
     ageRange: product.ageRange ? safeText(product.ageRange) : undefined,
-    inCart: product.inCart || 0,
+    inCart: getItemQuantity(safeText(product.id)),
+  };
+
+  const handleAddToCart = () => {
+    addToCart({
+      id: safeProduct.id,
+      name: safeProduct.name,
+      price: safeProduct.price,
+      image: safeProduct.image,
+    });
+
+    if (onAddToCart) {
+      onAddToCart(safeProduct.id);
+    }
   };
 
   return (
@@ -77,6 +92,13 @@ const ProductItem = ({ product, onAddToCart }: ProductItemProps) => {
                 {safeProduct.ageRange}
               </AppText>
             )}
+          </View>
+        )}
+        {safeProduct.discount && (
+          <View style={styles.discountTag}>
+            <AppText size={10} color={colors.white}>
+              {safeProduct.discount}
+            </AppText>
           </View>
         )}
       </View>
@@ -119,7 +141,7 @@ const ProductItem = ({ product, onAddToCart }: ProductItemProps) => {
 
       <TouchableOpacity
         style={styles.addToCartButton}
-        onPress={() => onAddToCart(safeProduct.id)}
+        onPress={handleAddToCart}
       >
         <MaterialCommunityIcons
           name="cart-outline"
@@ -140,10 +162,24 @@ const ProductItem = ({ product, onAddToCart }: ProductItemProps) => {
 
 export default ProductItem;
 
+const { width: screenWidth } = Dimensions.get('window');
+
 const styles = StyleSheet.create({
   productItem: {
-    width: '50%',
-    padding: 8,
+    flex: 1,
+    backgroundColor: colors.white,
+    borderRadius: 12,
+    marginTop: 12,
+    paddingHorizontal: 12,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 3.84,
+    elevation: 5,
+    width: (screenWidth - 32) / 2,
   },
   productImageContainer: {
     position: 'relative',
@@ -151,35 +187,35 @@ const styles = StyleSheet.create({
   },
   productImage: {
     width: '100%',
-    height: 150,
+    height: 120,
     borderRadius: 8,
+    backgroundColor: colors.neutral0,
   },
   weightTag: {
     position: 'absolute',
-    top: 8,
-    right: 8,
-    backgroundColor: colors.error,
+    top: 4,
+    left: 4,
+    backgroundColor: colors.main,
     paddingHorizontal: 6,
     paddingVertical: 2,
-    borderRadius: 8,
-    alignItems: 'center',
+    borderRadius: 4,
   },
   discountTag: {
     position: 'absolute',
-    top: 8,
-    left: 8,
+    top: 4,
+    right: 4,
     backgroundColor: colors.error,
     paddingHorizontal: 6,
     paddingVertical: 2,
-    borderRadius: 8,
+    borderRadius: 4,
   },
   productInfo: {
     flex: 1,
   },
   productName: {
+    fontWeight: '500',
     marginBottom: 4,
     lineHeight: 16,
-    minHeight: 48,
   },
   ratingContainer: {
     flexDirection: 'row',
@@ -191,33 +227,24 @@ const styles = StyleSheet.create({
   priceContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 8,
+    gap: 4,
   },
   price: {
     fontWeight: '600',
-    marginRight: 4,
   },
   originalPrice: {
     textDecorationLine: 'line-through',
   },
   addToCartButton: {
     position: 'absolute',
-    bottom: 8,
-    right: 8,
+    bottom: 12,
+    right: 12,
+    backgroundColor: colors.mainSub1,
     width: 32,
     height: 32,
     borderRadius: 16,
-    backgroundColor: colors.white,
     justifyContent: 'center',
     alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.1,
-    shadowRadius: 3.84,
-    elevation: 5,
   },
   cartBadge: {
     position: 'absolute',

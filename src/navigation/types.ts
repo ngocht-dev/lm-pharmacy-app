@@ -35,6 +35,7 @@ export type RootStackParamList = {
     categoryId?: number;
     categoryName?: string;
   };
+  CheckoutScreen: undefined;
   ProfileScreen: undefined;
 } & AuthParamList;
 

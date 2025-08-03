@@ -1,12 +1,12 @@
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import React from 'react';
-
 import { useAuthStore } from '@/app/appStore';
 import LoginScreen from '@/modules/auth/screens/LoginScreen';
+import CheckoutScreen from '@/modules/orders/screens/CheckoutScreen';
 import ProductScreen from '@/modules/product/screens/ProductScreen';
 import ProfileScreen from '@/modules/profile/screens/ProfileScreens';
 import { navigationRef } from '@/utils/navigation';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import React from 'react';
 import BottomTabNavigator from './BottomTabNavigator';
 import ROUTES from './routes';
 import { RootStackParamList } from './types';
@@ -32,6 +32,7 @@ function RootNavigation() {
         <Stack.Screen name={ROUTES.AUTH.LOGIN} component={LoginScreen} />
         <Stack.Screen name="Dashboard" component={BottomTabNavigator} />
         <Stack.Screen name="ProductScreen" component={ProductScreen} />
+        <Stack.Screen name="CheckoutScreen" component={CheckoutScreen} />
         <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
       </Stack.Navigator>
     </NavigationContainer>

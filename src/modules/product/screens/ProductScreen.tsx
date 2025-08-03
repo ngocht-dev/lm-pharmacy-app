@@ -4,12 +4,7 @@ import { RootScreenProps } from '@/navigation/types';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ActivityIndicator, FlatList, StyleSheet, View } from 'react-native';
-import {
-  FilterButtons,
-  FilterTabs,
-  ProductHeader,
-  ProductItem,
-} from '../components';
+import { FilterTabs, ProductHeader, ProductItem } from '../components';
 import { useProducts } from '../hooks';
 
 type ProductScreenProps = RootScreenProps<'ProductScreen'>;
@@ -56,16 +51,6 @@ const ProductScreen = ({ navigation, route }: ProductScreenProps) => {
     console.log('Searching for:', text);
   };
 
-  const handleCartPress = () => {
-    // TODO: Navigate to checkout
-    console.log('Navigate to checkout');
-  };
-
-  const handleAddToCart = (productId: string) => {
-    // TODO: Add to cart logic
-    console.log('Add to cart:', productId);
-  };
-
   const handleTabPress = (tab: string) => {
     setSelectedTab(tab);
     console.log('Selected tab:', tab);
@@ -95,20 +80,27 @@ const ProductScreen = ({ navigation, route }: ProductScreenProps) => {
         ? `${product.weight} ${product.weight_unit}`
         : undefined,
       ageRange: product.packaging || undefined,
-      inCart: 0, // Default cart count
+      inCart: 0, // This will be updated by the cart store
     };
 
     return transformed;
   });
 
-  const renderProductItem = ({ item }: { item: any }) => (
-    <ProductItem product={item} onAddToCart={handleAddToCart} />
+  const renderProductItem = ({ item, index }: { item: any; index: number }) => (
+    <View
+      style={[
+        styles.productItemContainer,
+        index % 2 === 0 ? styles.leftItem : styles.rightItem,
+      ]}
+    >
+      <ProductItem product={item} />
+    </View>
   );
 
   const renderHeader = () => (
     <>
       <FilterTabs selectedTab={selectedTab} onTabPress={handleTabPress} />
-      <FilterButtons />
+      {/* <FilterButtons /> */}
     </>
   );
 
@@ -161,14 +153,28 @@ const ProductScreen = ({ navigation, route }: ProductScreenProps) => {
     refetch();
   };
 
+  // Show centered loading screen when initially loading
+  if (isLoading && !productsData) {
+    return (
+      <View style={styles.container}>
+        <ProductHeader
+          searchText={searchText}
+          onSearchChange={handleSearch}
+          onBackPress={handleBack}
+        />
+        <View style={styles.loadingContainer}>
+          <ActivityIndicator size="large" color={colors.main} />
+        </View>
+      </View>
+    );
+  }
+
   return (
     <View style={[styles.container]}>
       <ProductHeader
         searchText={searchText}
         onSearchChange={handleSearch}
         onBackPress={handleBack}
-        onCartPress={handleCartPress}
-        cartCount={7}
       />
 
       <FlatList
@@ -176,7 +182,6 @@ const ProductScreen = ({ navigation, route }: ProductScreenProps) => {
         renderItem={renderProductItem}
         keyExtractor={(item) => item.id}
         numColumns={2}
-        columnWrapperStyle={styles.productRow}
         contentContainerStyle={styles.productList}
         ListHeaderComponent={renderHeader}
         ListFooterComponent={renderLoadingFooter}
@@ -186,10 +191,11 @@ const ProductScreen = ({ navigation, route }: ProductScreenProps) => {
         maxToRenderPerBatch={10}
         windowSize={10}
         removeClippedSubviews={true}
-        refreshing={isLoading}
+        refreshing={false}
         onRefresh={onRefresh}
         onEndReached={handleLoadMore}
         onEndReachedThreshold={0.1}
+        stickyHeaderIndices={[0]}
       />
     </View>
   );
@@ -205,9 +211,7 @@ const styles = StyleSheet.create({
   productList: {
     paddingHorizontal: 8,
     flexGrow: 1,
-  },
-  productRow: {
-    justifyContent: 'space-between',
+    marginTop: 16,
   },
   loadingFooter: {
     paddingVertical: 20,
@@ -224,5 +228,24 @@ const styles = StyleSheet.create({
   },
   emptyStateSubtext: {
     marginTop: 4,
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: colors.white,
+  },
+  itemSeparator: {
+    height: 8,
+  },
+  productItemContainer: {
+    flex: 1,
+    marginBottom: 8,
+  },
+  leftItem: {
+    marginRight: 8,
+  },
+  rightItem: {
+    marginLeft: 8,
   },
 });

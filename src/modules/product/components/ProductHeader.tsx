@@ -1,8 +1,11 @@
+import { useCartStore } from '@/app/cartStore';
 import Icons from '@/assets/icons';
 import AppText from '@/components/AppText';
 import AppTextInput from '@/components/AppTextInput';
 import colors from '@/constants/colors';
+import { RootScreenProps } from '@/navigation/types';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 import { LinearGradient } from 'expo-linear-gradient';
 import React from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
@@ -11,23 +14,27 @@ interface ProductHeaderProps {
   searchText: string;
   onSearchChange: (text: string) => void;
   onBackPress: () => void;
-  onCartPress: () => void;
-  cartCount?: number;
 }
 
 const ProductHeader = ({
   searchText,
   onSearchChange,
   onBackPress,
-  onCartPress,
-  cartCount = 0,
 }: ProductHeaderProps) => {
+  const { totalItems } = useCartStore();
+  const navigation =
+    useNavigation<RootScreenProps<'CheckoutScreen'>['navigation']>();
+
   const handleSearchChange = (fieldName: string, text: string) => {
     onSearchChange(text);
   };
 
+  const handleCartPress = () => {
+    navigation.navigate('CheckoutScreen');
+  };
+
   // Ensure cartCount is a string
-  const safeCartCount = cartCount ? String(cartCount) : '';
+  const safeCartCount = totalItems ? String(totalItems) : '';
 
   return (
     <LinearGradient
@@ -50,9 +57,9 @@ const ProductHeader = ({
           />
         </View>
 
-        <TouchableOpacity style={styles.cartButton} onPress={onCartPress}>
+        <TouchableOpacity style={styles.cartButton} onPress={handleCartPress}>
           <MaterialCommunityIcons name="cart-outline" size={24} color="white" />
-          {cartCount > 0 && (
+          {totalItems > 0 && (
             <View style={styles.cartBadge}>
               <AppText size={8} color={colors.white}>
                 {safeCartCount}

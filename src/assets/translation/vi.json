@@ -1,18 +1,19 @@
 {
+  "checkout": {
+    "my_cart": "Giỏ hàng",
+    "empty_cart_title": "Giỏ hàng trống",
+    "empty_cart_subtitle": "Thêm sản phẩm vào giỏ hàng để bắt đầu",
+    "remove_item_title": "Xóa sản phẩm",
+    "remove_item_message": "Bạn có chắc chắn muốn xóa sản phẩm này khỏi giỏ hàng?",
+    "discount_code": "Mã giảm giá",
+    "enter_discount_code": "Nhập mã giảm giá",
+    "apply": "Áp dụng",
+    "total": "Tổng cộng",
+    "checkout": "Thanh toán"
+  },
   "common": {
-    "search": "Tìm kiếm",
-    "search_placeholder": "Tìm kiếm sản phẩm",
-    "search_products": "Tìm kiếm sản phẩm",
-    "account": "Tài khoản",
-    "cart": "Giỏ hàng",
-    "home": "Trang chủ",
-    "orders": "Đơn hàng",
-    "categories": "Danh mục",
-    "product_categories": "Danh mục sản phẩm",
-    "welcome": "Chào mừng đến với",
-    "logging_in": "Đang đăng nhập...",
-    "social_login_coming_soon": "Đăng nhập bằng mạng xã hội sắp có...",
-    "version": "v1.0.0"
+    "cancel": "Hủy",
+    "remove": "Xóa"
   },
   "auth": {
     "login": "Đăng nhập",
