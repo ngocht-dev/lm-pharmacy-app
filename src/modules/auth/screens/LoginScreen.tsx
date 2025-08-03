@@ -74,7 +74,7 @@ const LoginScreen = () => {
         />
         <Gap />
         <AppButton
-          text={isLoading ? t('common.logging_in') : t('auth.sign_in')}
+          text={t('auth.sign_in')}
           onPress={handleLogin}
           disabled={isLoading}
         />

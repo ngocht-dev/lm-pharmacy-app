@@ -13,7 +13,10 @@
   },
   "common": {
     "cancel": "Hủy",
-    "remove": "Xóa"
+    "remove": "Xóa",
+    "welcome": "Chào mừng",
+    "social_login_coming_soon": "Đăng nhập mạng xã hội sắp có",
+    "version": "Phiên bản 1.0.0"
   },
   "auth": {
     "login": "Đăng nhập",

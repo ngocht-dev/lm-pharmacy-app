@@ -50,12 +50,6 @@ const ProductScreen = ({ navigation, route }: ProductScreenProps) => {
     console.log('Searching for:', text);
   };
 
-  const handleTabPress = (tab: string) => {
-    setSelectedTab(tab);
-    console.log('Selected tab:', tab);
-    // TODO: Implement filter logic
-  };
-
   // Flatten all pages data
   const allProducts = productsData?.pages?.flatMap((page) => page.data) || [];
 

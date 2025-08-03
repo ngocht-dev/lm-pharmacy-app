@@ -13,7 +13,10 @@
   },
   "common": {
     "cancel": "Cancel",
-    "remove": "Remove"
+    "remove": "Remove",
+    "welcome": "Welcome",
+    "social_login_coming_soon": "Social login coming soon",
+    "version": "Version 1.0.0"
   },
   "auth": {
     "login": "Login",

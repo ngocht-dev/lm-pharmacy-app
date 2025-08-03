@@ -1,4 +1,4 @@
-import { POST } from '@/services';
+import { GET, POST } from '@/services';
 
 export interface LoginCredentials {
   username: string;
@@ -25,6 +25,12 @@ export interface RefreshTokenResponse {
   access_token: string; // Changed from token to access_token to match API
 }
 
+export interface UserInfo {
+  id: number;
+  username: string;
+  role: string;
+}
+
 class AuthServices {
   login(credentials: LoginCredentials) {
     return POST<LoginResponse>('auth/login', credentials);
@@ -39,6 +45,10 @@ class AuthServices {
 
   logout() {
     return POST('auth/logout');
+  }
+
+  getMe() {
+    return GET<UserInfo>('auth/me');
   }
 }
 

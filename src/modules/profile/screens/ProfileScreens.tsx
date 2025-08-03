@@ -1,5 +1,6 @@
 import AppText from '@/components/AppText';
 import colors from '@/constants/colors';
+import { useUserInfo } from '@/modules/auth/hooks';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -20,6 +21,7 @@ const ProfileScreen = ({ navigation }: any) => {
   const insets = useSafeAreaInsets();
   const { t } = useTranslation();
   const { signOut, isLoading } = useSignOut();
+  const { data: userInfo } = useUserInfo();
 
   const handleMyOrders = () => {
     // TODO: Navigate to orders screen
@@ -157,6 +159,22 @@ const ProfileScreen = ({ navigation }: any) => {
 
       {/* Content */}
       <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
+        {/* User Info Section */}
+        <View style={styles.userInfoSection}>
+          <View style={styles.userAvatar}>
+            <Ionicons name="person" size={40} color={colors.white} />
+          </View>
+          <View style={styles.userDetails}>
+            <AppText size={18} color={colors.text} style={styles.username}>
+              {userInfo?.username || 'Loading...'}
+            </AppText>
+            <AppText size={14} color={colors.neutral3} style={styles.userRole}>
+              {userInfo?.role || 'Loading...'}
+            </AppText>
+          </View>
+        </View>
+
+        {/* Menu Items */}
         <View style={styles.menuContainer}>
           {menuItems.map((item, index) => (
             <TouchableOpacity
@@ -221,6 +239,35 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 1,
+  },
+  userInfoSection: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 16,
+    paddingVertical: 16,
+    borderBottomWidth: 1,
+    borderBottomColor: colors.neutral0,
+  },
+  userAvatar: {
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    backgroundColor: colors.main,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 16,
+  },
+  userDetails: {
+    flex: 1,
+  },
+  username: {
+    fontWeight: '600',
+  },
+  userRole: {
+    marginTop: 4,
+  },
+  userEmail: {
+    marginTop: 2,
   },
   menuContainer: {
     paddingHorizontal: 16,
