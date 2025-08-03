@@ -2,7 +2,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
 
-import { useAuthStatus } from '@/modules/auth/hooks';
+import { useAuthStore } from '@/app/appStore';
 import LoginScreen from '@/modules/auth/screens/LoginScreen';
 import ProductScreen from '@/modules/product/screens/ProductScreen';
 import ProfileScreen from '@/modules/profile/screens/ProfileScreens';
@@ -14,7 +14,7 @@ import { RootStackParamList } from './types';
 export const Stack = createStackNavigator<RootStackParamList>();
 
 function RootNavigation() {
-  const { isAuthenticated } = useAuthStatus();
+  const { isAuthenticated } = useAuthStore();
 
   const getInitialRouteName = () => {
     console.log('khanh isAuthenticated', isAuthenticated);

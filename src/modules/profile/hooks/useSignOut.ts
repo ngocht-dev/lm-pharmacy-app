@@ -1,17 +1,21 @@
+import { useAuthStore } from '@/app/appStore';
 import storageKeys from '@/constants/storageKeys';
 import { NavigationUtil } from '@/utils/navigation';
 import storage from '@/utils/storage';
 import { useMutation } from '@tanstack/react-query';
 
 export const useSignOut = () => {
+  const { setAuthenticated } = useAuthStore();
+
   const signOutMutation = useMutation({
     mutationFn: async () => {
       // Clear all authentication tokens
       await storage.removeSecureItem(storageKeys.ACCESS_TOKEN);
       await storage.removeSecureItem(storageKeys.REFRESH_TOKEN);
-
-      // Clear any other user-related data
       await storage.removeSecureItem(storageKeys.USER_ID);
+
+      // Update store state
+      setAuthenticated(false);
 
       console.log('All tokens and user data cleared');
     },

@@ -6,6 +6,7 @@ import 'react-native-reanimated';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import Toast from 'react-native-toast-message';
 
+import AppInitializer from './app/AppInitializer';
 import GlobalLoading from './components/GlobalLoading';
 import RootNavigation from './navigation';
 
@@ -31,7 +32,9 @@ export default function MainApp() {
     <QueryClientProvider client={queryClient}>
       <SafeAreaProvider>
         <StatusBar translucent backgroundColor="transparent" />
-        <RootNavigation />
+        <AppInitializer>
+          <RootNavigation />
+        </AppInitializer>
         <GlobalLoading />
         <Toast />
       </SafeAreaProvider>

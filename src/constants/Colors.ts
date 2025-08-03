@@ -1,6 +1,6 @@
 export default {
   white: '#fff',
-  main: '#7F58AD',
+  main: '#4A90E2',
   mainSub1: '#F4EFFA',
   mainSub2: '#242424',
   text: '#383838',

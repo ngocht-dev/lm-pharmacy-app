@@ -58,6 +58,8 @@ const useSignIn = () => {
               index: 0,
               routes: [{ name: 'Dashboard' }],
             });
+
+            return;
           } else {
             setMessage('Login failed. Invalid response from server.');
           }

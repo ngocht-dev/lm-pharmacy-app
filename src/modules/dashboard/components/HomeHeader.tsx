@@ -4,6 +4,7 @@ import AppTouchable from '@/components/AppTouchable';
 import colors from '@/constants/colors';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import { LinearGradient } from 'expo-linear-gradient';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
@@ -29,7 +30,10 @@ const HomeHeader = ({
   };
 
   return (
-    <View style={[styles.container, { paddingTop: insets.top + 12 }]}>
+    <LinearGradient
+      colors={['#4A90E2', '#7B68EE']}
+      style={[styles.headerGradient, { paddingTop: insets.top }]}
+    >
       <View style={styles.headerRow}>
         <View style={styles.searchContainer}>
           <AppTouchable style={styles.searchBar} onPress={handleSearchPress}>
@@ -59,19 +63,13 @@ const HomeHeader = ({
           </TouchableOpacity>
         </View>
       </View>
-    </View>
+    </LinearGradient>
   );
 };
 
 export default HomeHeader;
 
 const styles = StyleSheet.create({
-  container: {
-    paddingHorizontal: 24,
-    backgroundColor: colors.main,
-    paddingBottom: 15,
-    zIndex: 10,
-  },
   headerRow: {
     flexDirection: 'row',
   },
@@ -111,5 +109,9 @@ const styles = StyleSheet.create({
     height: 20,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  headerGradient: {
+    paddingBottom: 16,
+    paddingHorizontal: 16,
   },
 });
