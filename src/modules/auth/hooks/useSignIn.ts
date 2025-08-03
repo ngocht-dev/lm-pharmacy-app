@@ -53,7 +53,10 @@ const useSignIn = () => {
             );
 
             // Reset to dashboard after successful login
-            console.log('Login successful, resetting to dashboard');
+            console.log(
+              'Login successful, resetting to dashboard',
+              access_token
+            );
             navigation.reset({
               index: 0,
               routes: [{ name: 'Dashboard' }],

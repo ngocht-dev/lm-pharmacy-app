@@ -44,7 +44,6 @@ const ProductItem = ({ product, onAddToCart }: ProductItemProps) => {
     return null;
   }
 
-  // Pre-convert all text values to ensure they're strings
   const safeProduct = {
     id: safeText(product.id),
     name: safeText(product.name),
@@ -60,15 +59,6 @@ const ProductItem = ({ product, onAddToCart }: ProductItemProps) => {
     ageRange: product.ageRange ? safeText(product.ageRange) : undefined,
     inCart: product.inCart || 0,
   };
-
-  // Debug log to see what data we're getting
-  console.log('ProductItem render:', {
-    id: safeProduct.id,
-    name: safeProduct.name,
-    price: safeProduct.price,
-    soldCount: safeProduct.soldCount,
-    inCart: safeProduct.inCart,
-  });
 
   return (
     <View style={styles.productItem}>
@@ -87,13 +77,6 @@ const ProductItem = ({ product, onAddToCart }: ProductItemProps) => {
                 {safeProduct.ageRange}
               </AppText>
             )}
-          </View>
-        )}
-        {safeProduct.discount && (
-          <View style={styles.discountTag}>
-            <AppText size={10} color={colors.white}>
-              {safeProduct.discount}
-            </AppText>
           </View>
         )}
       </View>

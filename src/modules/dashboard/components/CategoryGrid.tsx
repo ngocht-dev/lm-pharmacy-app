@@ -1,7 +1,6 @@
 import AppText from '@/components/AppText';
 import colors from '@/constants/colors';
 import { Ionicons } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Dimensions, StyleSheet, TouchableOpacity, View } from 'react-native';
@@ -15,7 +14,6 @@ interface CategoryGridProps {
 }
 
 const CategoryGrid = ({ categories, onCategoryPress }: CategoryGridProps) => {
-  const navigation = useNavigation();
   const { t } = useTranslation();
 
   // Mock category icons - matching the screenshot
@@ -44,11 +42,6 @@ const CategoryGrid = ({ categories, onCategoryPress }: CategoryGridProps) => {
   const handleCategoryPress = (category: Category) => {
     if (onCategoryPress) {
       onCategoryPress(category);
-    } else {
-      navigation.navigate('ProductScreen' as any, {
-        categoryId: category.id,
-        searchQuery: category.name,
-      });
     }
   };
 

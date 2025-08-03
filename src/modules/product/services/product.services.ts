@@ -34,9 +34,23 @@ export interface Product {
   thumbnail_url: string | null;
 }
 
+export interface ProductsResponse {
+  data: Product[];
+  total: number;
+  page: number;
+  lastPage: number;
+}
+
+export interface SearchParams {
+  name?: string;
+  category_id?: number;
+  page?: number;
+  limit?: number;
+}
+
 class ProductServices {
-  getAllProducts() {
-    return GET<Product[]>('products/all');
+  getProducts(params?: SearchParams) {
+    return GET<ProductsResponse>('products', params);
   }
 }
 

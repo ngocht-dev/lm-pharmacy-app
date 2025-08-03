@@ -1,6 +1,8 @@
 import Gap from '@/components/Gap';
 import GlobalLoading from '@/components/GlobalLoading';
 import colors from '@/constants/colors';
+import { RootScreenProps } from '@/navigation/types';
+import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { CategoryGrid, HomeCarousel } from '../components';
@@ -10,6 +12,8 @@ import { Category } from '../services/dashboard.services';
 
 const HomeScreen = () => {
   const { data: categories, isLoading, error } = useCategories();
+  const navigation =
+    useNavigation<RootScreenProps<'ProductScreen'>['navigation']>();
   const [cartCount] = useState(3); // Mock cart count
 
   // Mock carousel images - using working placeholder service
@@ -29,6 +33,10 @@ const HomeScreen = () => {
 
   const handleCategoryPress = (category: Category) => {
     console.log('Category pressed:', category.name);
+    navigation.navigate('ProductScreen', {
+      categoryId: category.id,
+      categoryName: category.name,
+    });
   };
 
   if (isLoading) {

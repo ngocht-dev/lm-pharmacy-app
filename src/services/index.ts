@@ -99,8 +99,23 @@ const refreshToken = async (error: any) => {
 };
 
 axiosIntance.interceptors.response.use(
-  (config) => {
-    return config;
+  (res) => {
+    if (true) {
+      console.log(
+        JSON.stringify(
+          {
+            type: 'SUCCESS',
+            url: res.config?.url,
+            method: res.config?.method,
+            httpStatus: res.status,
+            data: res?.data,
+          },
+          null,
+          2
+        )
+      );
+    }
+    return res;
   },
   async (error: AxiosError) => {
     console.log('🔍 INTERCEPTOR TRIGGERED:', {

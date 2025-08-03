@@ -1,6 +1,7 @@
 import AppText from '@/components/AppText';
 import colors from '@/constants/colors';
-import React, { useState } from 'react';
+import { RootScreenProps } from '@/navigation/types';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ActivityIndicator, FlatList, StyleSheet, View } from 'react-native';
 import {
@@ -11,12 +12,40 @@ import {
 } from '../components';
 import { useProducts } from '../hooks';
 
-const ProductScreen = ({ navigation }: any) => {
+type ProductScreenProps = RootScreenProps<'ProductScreen'>;
+
+const ProductScreen = ({ navigation, route }: ProductScreenProps) => {
   const [searchText, setSearchText] = useState('');
   const [selectedTab, setSelectedTab] = useState('popular');
+  const [debouncedSearchText, setDebouncedSearchText] = useState('');
 
-  const { data: products, isLoading, refetch } = useProducts();
+  // Get category_id from route params
+  const categoryId = route.params?.categoryId;
+  const categoryName = route.params?.categoryName;
+
+  const {
+    data: productsData,
+    isLoading,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    refetch,
+  } = useProducts({
+    name: debouncedSearchText || undefined,
+    category_id: categoryId,
+    enabled: true,
+  });
+
   const { t } = useTranslation();
+
+  // Debounce search text
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedSearchText(searchText);
+    }, 500); // 500ms delay
+
+    return () => clearTimeout(timer);
+  }, [searchText]);
 
   const handleBack = () => {
     navigation.goBack();
@@ -25,7 +54,6 @@ const ProductScreen = ({ navigation }: any) => {
   const handleSearch = (text: string) => {
     setSearchText(text);
     console.log('Searching for:', text);
-    // TODO: Implement search logic
   };
 
   const handleCartPress = () => {
@@ -44,40 +72,34 @@ const ProductScreen = ({ navigation }: any) => {
     // TODO: Implement filter logic
   };
 
-  // Transform API data to match ProductItem interface
-  const transformedProducts =
-    products?.map((product) => {
-      const transformed = {
-        id: product.id.toString(),
-        name: product.name,
-        image:
-          product.thumbnail_url ||
-          'https://dummyimage.com/150x150/90ee90/ffffff&text=Product',
-        price: `${parseInt(product.sale_price).toLocaleString()}₫`,
-        originalPrice:
-          product.cost_price !== product.sale_price
-            ? `${parseInt(product.cost_price).toLocaleString()}₫`
-            : undefined,
-        discount:
-          product.cost_price !== product.sale_price
-            ? `-${Math.round(
-                ((parseInt(product.cost_price) - parseInt(product.sale_price)) /
-                  parseInt(product.cost_price)) *
-                  100
-              )}%`
-            : undefined,
-        rating: 5, // Default rating since API doesn't provide it
-        soldCount: `Đã bán ${product.sold_amount}`,
-        weight: product.weight
-          ? `${product.weight} ${product.weight_unit}`
-          : undefined,
-        ageRange: product.packaging || undefined,
-        inCart: 0, // Default cart count
-      };
+  // Flatten all pages data
+  const allProducts = productsData?.pages?.flatMap((page) => page.data) || [];
 
-      console.log('Transformed product:', transformed);
-      return transformed;
-    }) || [];
+  // Transform API data to match ProductItem interface
+  const transformedProducts = allProducts.map((product) => {
+    const transformed = {
+      id: product.id.toString(),
+      name: product.name,
+      image:
+        product.thumbnail_url ||
+        'https://dummyimage.com/150x150/90ee90/ffffff&text=Product',
+      price: `${parseInt(product.sale_price).toLocaleString()}₫`,
+      originalPrice:
+        product.cost_price !== product.sale_price &&
+        parseInt(product.cost_price) > parseInt(product.sale_price)
+          ? `${parseInt(product.cost_price).toLocaleString()}₫`
+          : undefined,
+      rating: 5, // Default rating since API doesn't provide it
+      soldCount: `Đã bán ${product.sold_amount}`,
+      weight: product.weight
+        ? `${product.weight} ${product.weight_unit}`
+        : undefined,
+      ageRange: product.packaging || undefined,
+      inCart: 0, // Default cart count
+    };
+
+    return transformed;
+  });
 
   const renderProductItem = ({ item }: { item: any }) => (
     <ProductItem product={item} onAddToCart={handleAddToCart} />
@@ -91,7 +113,7 @@ const ProductScreen = ({ navigation }: any) => {
   );
 
   const renderLoadingFooter = () => {
-    if (!isLoading) return null;
+    if (!isFetchingNextPage) return null;
     return (
       <View style={styles.loadingFooter}>
         <ActivityIndicator size="large" color={colors.main} />
@@ -108,17 +130,31 @@ const ProductScreen = ({ navigation }: any) => {
           color={colors.neutral3}
           style={styles.emptyStateText}
         >
-          {t('product.no_products')}
+          {debouncedSearchText
+            ? `${t('product.no_search_results_prefix')} "${debouncedSearchText}"`
+            : categoryId
+              ? `${t('product.no_products_in_category')} "${categoryName}"`
+              : t('product.no_products')}
         </AppText>
         <AppText
           size={14}
           color={colors.neutral3}
           style={styles.emptyStateSubtext}
         >
-          {t('product.no_products_subtitle')}
+          {debouncedSearchText
+            ? t('product.try_different_search')
+            : categoryId
+              ? t('product.try_different_category')
+              : t('product.no_products_subtitle')}
         </AppText>
       </View>
     );
+  };
+
+  const handleLoadMore = () => {
+    if (hasNextPage && !isFetchingNextPage) {
+      fetchNextPage();
+    }
   };
 
   const onRefresh = () => {
@@ -152,6 +188,8 @@ const ProductScreen = ({ navigation }: any) => {
         removeClippedSubviews={true}
         refreshing={isLoading}
         onRefresh={onRefresh}
+        onEndReached={handleLoadMore}
+        onEndReachedThreshold={0.1}
       />
     </View>
   );

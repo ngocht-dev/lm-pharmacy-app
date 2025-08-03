@@ -18,6 +18,7 @@ export type ProductsParamList = {
   ProductScreen: {
     searchQuery?: string;
     categoryId?: number;
+    categoryName?: string;
   };
 };
 
@@ -32,6 +33,7 @@ export type RootStackParamList = {
   ProductScreen: {
     searchQuery?: string;
     categoryId?: number;
+    categoryName?: string;
   };
   ProfileScreen: undefined;
 } & AuthParamList;
