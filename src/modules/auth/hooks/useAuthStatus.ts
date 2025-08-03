@@ -3,7 +3,6 @@ import storage from '@/utils/storage';
 import { useEffect, useState } from 'react';
 
 export const useAuthStatus = () => {
-  const [isLoading, setIsLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
@@ -17,6 +16,7 @@ export const useAuthStatus = () => {
         );
 
         if (accessToken && refreshToken) {
+          console.log('kjhanh isAuthenticated', accessToken, refreshToken);
           setIsAuthenticated(true);
         } else {
           setIsAuthenticated(false);
@@ -24,8 +24,6 @@ export const useAuthStatus = () => {
       } catch (error) {
         console.error('Error checking auth status:', error);
         setIsAuthenticated(false);
-      } finally {
-        setIsLoading(false);
       }
     };
 
@@ -33,7 +31,6 @@ export const useAuthStatus = () => {
   }, []);
 
   return {
-    isLoading,
     isAuthenticated,
   };
 };

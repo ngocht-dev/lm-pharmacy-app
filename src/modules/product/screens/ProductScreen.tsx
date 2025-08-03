@@ -1,7 +1,6 @@
 import colors from '@/constants/colors';
 import React, { useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import {
   FilterButtons,
   FilterTabs,
@@ -24,7 +23,6 @@ interface Product {
 }
 
 const ProductScreen = ({ navigation }: any) => {
-  const insets = useSafeAreaInsets();
   const [searchText, setSearchText] = useState('');
   const [selectedTab, setSelectedTab] = useState('popular');
 

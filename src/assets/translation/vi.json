@@ -34,5 +34,17 @@
     "home": "Trang chủ",
     "orders": "Đơn hàng",
     "account": "Tài khoản"
+  },
+  "profile": {
+    "account": "Tài khoản",
+    "account_info_placeholder": "Thông tin tài khoản của bạn sẽ hiển thị ở đây",
+    "my_orders": "Đơn hàng của tôi",
+    "categories": "Danh mục",
+    "social_account": "Tài khoản mạng xã hội",
+    "change_password": "Đổi mật khẩu",
+    "terms_of_service": "Điều khoản dịch vụ",
+    "privacy_policy": "Chính sách bảo mật",
+    "delete_account": "Xóa tài khoản",
+    "log_out": "Đăng xuất"
   }
 }

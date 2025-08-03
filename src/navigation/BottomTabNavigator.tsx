@@ -4,9 +4,9 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import AccountScreen from '@/modules/dashboard/screens/AccountScreen';
 import HomeScreen from '@/modules/dashboard/screens/HomeScreens';
 import OrdersScreen from '@/modules/dashboard/screens/OrdersScreen';
+import ProfileScreen from '@/modules/profile/screens/ProfileScreens';
 import ROUTES from './routes';
 import { DashboardTabParamList } from './types';
 
@@ -67,7 +67,7 @@ const BottomTabNavigator = () => {
       />
       <Tab.Screen
         name={ROUTES.DASHBOARD.ACCOUNT}
-        component={AccountScreen}
+        component={ProfileScreen}
         options={{
           tabBarLabel: t('navigation.account'),
         }}

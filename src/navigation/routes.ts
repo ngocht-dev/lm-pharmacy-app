@@ -10,6 +10,9 @@ const ROUTES = {
   PRODUCTS: {
     LIST: 'ProductScreen',
   },
+  PROFILE: {
+    MAIN: 'ProfileScreen',
+  },
 } as const;
 
 export default ROUTES;

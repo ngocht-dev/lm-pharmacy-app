@@ -21,6 +21,11 @@ export type ProductsParamList = {
   };
 };
 
+// Profile Stack Param List
+export type ProfileParamList = {
+  ProfileScreen: undefined;
+};
+
 // Root Stack Param List
 export type RootStackParamList = {
   Dashboard: NavigatorScreenParams<DashboardTabParamList>;
@@ -28,6 +33,7 @@ export type RootStackParamList = {
     searchQuery?: string;
     categoryId?: number;
   };
+  ProfileScreen: undefined;
 } & AuthParamList;
 
 // Screen Props Types

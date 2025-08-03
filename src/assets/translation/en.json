@@ -34,5 +34,17 @@
     "home": "Home",
     "orders": "Orders",
     "account": "Account"
+  },
+  "profile": {
+    "account": "Account",
+    "account_info_placeholder": "Your account information will be displayed here",
+    "my_orders": "My orders",
+    "categories": "Categories",
+    "social_account": "Social account",
+    "change_password": "Change password",
+    "terms_of_service": "Term of Service",
+    "privacy_policy": "Privacy Policy",
+    "delete_account": "Delete account",
+    "log_out": "Log out"
   }
 }
