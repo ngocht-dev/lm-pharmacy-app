@@ -3,13 +3,7 @@ import AppText from '@/components/AppText';
 import colors from '@/constants/colors';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import React from 'react';
-import {
-  Dimensions,
-  Image,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 interface Product {
   id: string;
@@ -162,15 +156,12 @@ const ProductItem = ({ product, onAddToCart }: ProductItemProps) => {
 
 export default ProductItem;
 
-const { width: screenWidth } = Dimensions.get('window');
-
 const styles = StyleSheet.create({
   productItem: {
     flex: 1,
     backgroundColor: colors.white,
     borderRadius: 12,
-    marginTop: 12,
-    paddingHorizontal: 12,
+    padding: 12,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -179,7 +170,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 3.84,
     elevation: 5,
-    width: (screenWidth - 32) / 2,
+    minHeight: 200,
   },
   productImageContainer: {
     position: 'relative',

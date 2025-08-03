@@ -5,7 +5,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import HomeScreen from '@/modules/dashboard/screens/HomeScreens';
-import OrdersScreen from '@/modules/dashboard/screens/OrdersScreen';
+import CheckoutScreen from '@/modules/orders/screens/CheckoutScreen';
 import ProfileScreen from '@/modules/profile/screens/ProfileScreens';
 import ROUTES from './routes';
 import { DashboardTabParamList } from './types';
@@ -60,7 +60,7 @@ const BottomTabNavigator = () => {
       />
       <Tab.Screen
         name={ROUTES.DASHBOARD.ORDERS}
-        component={OrdersScreen}
+        component={CheckoutScreen}
         options={{
           tabBarLabel: t('navigation.orders'),
         }}

@@ -1,6 +1,7 @@
 import AppText from '@/components/AppText';
 import AppTouchable from '@/components/AppTouchable';
 import colors from '@/constants/colors';
+import ROUTES from '@/navigation/routes';
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -11,7 +12,7 @@ const AccountScreen = () => {
   const { t } = useTranslation();
 
   const handleNavigateToProfile = () => {
-    navigation.navigate('ProfileScreen' as any);
+    navigation.navigate(ROUTES.PROFILE.MAIN);
   };
 
   return (

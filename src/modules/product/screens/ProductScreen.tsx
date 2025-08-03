@@ -4,14 +4,13 @@ import { RootScreenProps } from '@/navigation/types';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ActivityIndicator, FlatList, StyleSheet, View } from 'react-native';
-import { FilterTabs, ProductHeader, ProductItem } from '../components';
+import { ProductHeader, ProductItem } from '../components';
 import { useProducts } from '../hooks';
 
 type ProductScreenProps = RootScreenProps<'ProductScreen'>;
 
 const ProductScreen = ({ navigation, route }: ProductScreenProps) => {
   const [searchText, setSearchText] = useState('');
-  const [selectedTab, setSelectedTab] = useState('popular');
   const [debouncedSearchText, setDebouncedSearchText] = useState('');
 
   // Get category_id from route params
@@ -86,22 +85,10 @@ const ProductScreen = ({ navigation, route }: ProductScreenProps) => {
     return transformed;
   });
 
-  const renderProductItem = ({ item, index }: { item: any; index: number }) => (
-    <View
-      style={[
-        styles.productItemContainer,
-        index % 2 === 0 ? styles.leftItem : styles.rightItem,
-      ]}
-    >
+  const renderProductItem = ({ item }: { item: any }) => (
+    <View style={styles.productItemWrapper}>
       <ProductItem product={item} />
     </View>
-  );
-
-  const renderHeader = () => (
-    <>
-      <FilterTabs selectedTab={selectedTab} onTabPress={handleTabPress} />
-      {/* <FilterButtons /> */}
-    </>
   );
 
   const renderLoadingFooter = () => {
@@ -183,7 +170,7 @@ const ProductScreen = ({ navigation, route }: ProductScreenProps) => {
         keyExtractor={(item) => item.id}
         numColumns={2}
         contentContainerStyle={styles.productList}
-        ListHeaderComponent={renderHeader}
+        columnWrapperStyle={styles.columnWrapper}
         ListFooterComponent={renderLoadingFooter}
         ListEmptyComponent={renderEmptyState}
         showsVerticalScrollIndicator={false}
@@ -195,7 +182,6 @@ const ProductScreen = ({ navigation, route }: ProductScreenProps) => {
         onRefresh={onRefresh}
         onEndReached={handleLoadMore}
         onEndReachedThreshold={0.1}
-        stickyHeaderIndices={[0]}
       />
     </View>
   );
@@ -209,9 +195,9 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
   },
   productList: {
-    paddingHorizontal: 8,
     flexGrow: 1,
-    marginTop: 16,
+    paddingHorizontal: 16,
+    paddingTop: 16,
   },
   loadingFooter: {
     paddingVertical: 20,
@@ -235,17 +221,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: colors.white,
   },
-  itemSeparator: {
-    height: 8,
+  productItemWrapper: {
+    width: '48%', // Fixed width to ensure 2 columns
+    marginBottom: 16,
   },
-  productItemContainer: {
-    flex: 1,
-    marginBottom: 8,
-  },
-  leftItem: {
-    marginRight: 8,
-  },
-  rightItem: {
-    marginLeft: 8,
+  columnWrapper: {
+    justifyContent: 'space-between', // Distribute items evenly
   },
 });

@@ -2,6 +2,8 @@ import Icons from '@/assets/icons';
 import AppText from '@/components/AppText';
 import AppTouchable from '@/components/AppTouchable';
 import colors from '@/constants/colors';
+import ROUTES from '@/navigation/routes';
+import { RootScreenProps } from '@/navigation/types';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -22,11 +24,14 @@ const HomeHeader = ({
   cartCount = 0,
 }: SearchHeaderProps) => {
   const insets = useSafeAreaInsets();
-  const navigation = useNavigation();
+  const navigation =
+    useNavigation<RootScreenProps<'ProductScreen'>['navigation']>();
   const { t } = useTranslation();
 
   const handleSearchPress = () => {
-    navigation.navigate('ProductScreen' as never);
+    navigation.navigate(ROUTES.PRODUCTS.LIST, {
+      searchQuery: '',
+    });
   };
 
   return (

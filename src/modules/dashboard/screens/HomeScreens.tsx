@@ -1,20 +1,25 @@
+import { useCartStore } from '@/app/cartStore';
 import Gap from '@/components/Gap';
 import GlobalLoading from '@/components/GlobalLoading';
 import colors from '@/constants/colors';
+import ROUTES from '@/navigation/routes';
 import { RootScreenProps } from '@/navigation/types';
 import { useNavigation } from '@react-navigation/native';
-import React, { useState } from 'react';
+import React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { CategoryGrid, HomeCarousel } from '../components';
 import HomeHeader from '../components/HomeHeader';
 import { useCategories } from '../hooks';
 import { Category } from '../services/dashboard.services';
 
+type HomeScreenNavigation = RootScreenProps<'ProductScreen'>['navigation'] &
+  RootScreenProps<'CheckoutScreen'>['navigation'] &
+  RootScreenProps<'ProfileScreen'>['navigation'];
+
 const HomeScreen = () => {
   const { data: categories, isLoading, error } = useCategories();
-  const navigation =
-    useNavigation<RootScreenProps<'ProductScreen'>['navigation']>();
-  const [cartCount] = useState(3); // Mock cart count
+  const navigation = useNavigation<HomeScreenNavigation>();
+  const { totalItems } = useCartStore();
 
   // Mock carousel images - using working placeholder service
   const carouselImages = [
@@ -24,16 +29,16 @@ const HomeScreen = () => {
   ];
 
   const handleAccountPress = () => {
-    console.log('Account pressed');
+    navigation.navigate(ROUTES.PROFILE.MAIN);
   };
 
   const handleCartPress = () => {
-    console.log('Cart pressed');
+    navigation.navigate(ROUTES.DASHBOARD.ORDERS);
   };
 
   const handleCategoryPress = (category: Category) => {
     console.log('Category pressed:', category.name);
-    navigation.navigate('ProductScreen', {
+    navigation.navigate(ROUTES.PRODUCTS.LIST, {
       categoryId: category.id,
       categoryName: category.name,
     });
@@ -52,7 +57,7 @@ const HomeScreen = () => {
       <HomeHeader
         onAccountPress={handleAccountPress}
         onCartPress={handleCartPress}
-        cartCount={cartCount}
+        cartCount={totalItems}
       />
       <View style={{ flex: 1 }}>
         <ScrollView

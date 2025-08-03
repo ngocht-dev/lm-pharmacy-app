@@ -4,7 +4,7 @@ const ROUTES = {
   },
   DASHBOARD: {
     HOME: 'HomeScreen',
-    ORDERS: 'OrdersScreen',
+    ORDERS: 'CheckoutScreen',
     ACCOUNT: 'AccountScreen',
   },
   PRODUCTS: {

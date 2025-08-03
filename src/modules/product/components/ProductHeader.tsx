@@ -3,6 +3,7 @@ import Icons from '@/assets/icons';
 import AppText from '@/components/AppText';
 import AppTextInput from '@/components/AppTextInput';
 import colors from '@/constants/colors';
+import ROUTES from '@/navigation/routes';
 import { RootScreenProps } from '@/navigation/types';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
@@ -30,7 +31,7 @@ const ProductHeader = ({
   };
 
   const handleCartPress = () => {
-    navigation.navigate('CheckoutScreen');
+    navigation.navigate(ROUTES.DASHBOARD.ORDERS);
   };
 
   // Ensure cartCount is a string
