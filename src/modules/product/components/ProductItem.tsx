@@ -1,6 +1,7 @@
 import { useCartStore } from '@/app/cartStore';
 import AppText from '@/components/AppText';
 import colors from '@/constants/colors';
+import { safeText } from '@/utils/stringUtils';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import React from 'react';
 import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
@@ -26,19 +27,6 @@ interface ProductItemProps {
 
 const ProductItem = ({ product, onAddToCart }: ProductItemProps) => {
   const { addToCart, getItemQuantity } = useCartStore();
-
-  const safeText = (value: any): string => {
-    try {
-      if (value === null || value === undefined) return '';
-      if (typeof value === 'string') return value;
-      if (typeof value === 'number') return value.toString();
-      if (typeof value === 'boolean') return value.toString();
-      return String(value);
-    } catch (error) {
-      console.warn('Error converting value to string:', value, error);
-      return '';
-    }
-  };
 
   const safeProduct = {
     id: safeText(product.id),

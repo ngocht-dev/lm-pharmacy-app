@@ -59,7 +59,7 @@ const HomeScreen = () => {
         onCartPress={handleCartPress}
         cartCount={totalItems}
       />
-      <View style={{ flex: 1 }}>
+      <View style={styles.contentContainer}>
         <ScrollView
           style={styles.container}
           showsVerticalScrollIndicator={false}
@@ -84,5 +84,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.neutral0,
+  },
+  contentContainer: {
+    flex: 1,
   },
 });
