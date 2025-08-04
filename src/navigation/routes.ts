@@ -4,9 +4,11 @@ const ROUTES = {
   },
   DASHBOARD: {
     HOME: 'HomeScreen',
-    ORDERS: 'CheckoutScreen',
+    ORDERS: 'OrdersScreen',
     ACCOUNT: 'AccountScreen',
+    MAIN: 'Dashboard',
   },
+  MY_ORDERS: 'MyOrdersScreen',
   PRODUCTS: {
     LIST: 'ProductScreen',
   },

@@ -13,7 +13,7 @@ import { useCategories } from '../hooks';
 import { Category } from '../services/dashboard.services';
 
 type HomeScreenNavigation = RootScreenProps<'ProductScreen'>['navigation'] &
-  RootScreenProps<'CheckoutScreen'>['navigation'] &
+  RootScreenProps<'OrdersScreen'>['navigation'] &
   RootScreenProps<'ProfileScreen'>['navigation'];
 
 const HomeScreen = () => {

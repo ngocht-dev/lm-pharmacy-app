@@ -24,7 +24,7 @@ const ProductHeader = ({
 }: ProductHeaderProps) => {
   const { totalItems } = useCartStore();
   const navigation =
-    useNavigation<RootScreenProps<'CheckoutScreen'>['navigation']>();
+    useNavigation<RootScreenProps<'OrdersScreen'>['navigation']>();
 
   const handleSearchChange = (fieldName: string, text: string) => {
     onSearchChange(text);

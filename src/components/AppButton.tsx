@@ -9,6 +9,7 @@ type Props = {
   variant?: 'primary' | 'secondary' | 'gold' | 'white';
   style?: ViewStyle;
   disabled?: boolean;
+  size?: number;
 };
 
 const AppButton = ({
@@ -17,6 +18,7 @@ const AppButton = ({
   onPress,
   variant = 'primary',
   style,
+  size = 16,
 }: Props) => {
   const theme = useMemo(() => {
     if (variant === 'secondary') {
@@ -48,7 +50,7 @@ const AppButton = ({
       activeOpacity={0.8}
       style={[styles.container, theme.containerStyle, style]}
     >
-      <AppText style={theme.textStyle} size={17} fontWeight={700}>
+      <AppText style={theme.textStyle} size={size} fontWeight={700}>
         {text}
       </AppText>
     </TouchableOpacity>

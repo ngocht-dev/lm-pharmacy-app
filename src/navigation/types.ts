@@ -35,8 +35,9 @@ export type RootStackParamList = {
     categoryId?: number;
     categoryName?: string;
   };
-  CheckoutScreen: undefined;
+  OrdersScreen: undefined;
   ProfileScreen: undefined;
+  MyOrdersScreen: undefined;
 } & AuthParamList;
 
 // Screen Props Types

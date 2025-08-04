@@ -4,11 +4,13 @@ import React from 'react';
 import { ActivityIndicator, StyleSheet, View } from 'react-native';
 
 const GlobalLoading = () => {
-  const { loading } = useGlobalLoading();
-  if (!loading) return;
+  const { isLoading } = useGlobalLoading();
+
+  if (!isLoading) return null;
+
   return (
-    <View style={[StyleSheet.absoluteFill, styles.container]}>
-      <ActivityIndicator size={'large'} color={colors.main} />
+    <View style={styles.container}>
+      <ActivityIndicator size="large" color={colors.main} />
     </View>
   );
 };

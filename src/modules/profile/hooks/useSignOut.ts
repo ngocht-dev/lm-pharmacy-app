@@ -16,7 +16,6 @@ export const useSignOut = () => {
 
       // Update store state
       setAuthenticated(false);
-
       console.log('All tokens and user data cleared');
     },
     onSuccess: () => {

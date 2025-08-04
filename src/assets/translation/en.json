@@ -9,14 +9,26 @@
     "enter_discount_code": "Enter discount code",
     "apply": "Apply",
     "total": "Total",
-    "checkout": "Checkout"
+    "checkout": "Checkout",
+    "confirm_order": "Confirm Order",
+    "confirm_order_message": "Are you sure you want to place this order?",
+    "creating_order": "Creating...",
+    "order_created_successfully": "Order Created Successfully!",
+    "order_code": "Order Code",
+    "view_orders": "View Orders",
+    "continue_shopping": "Continue",
+    "cart_empty_error": "Cart is empty",
+    "order_creation_error": "Failed to create order. Please try again."
   },
   "common": {
     "cancel": "Cancel",
     "remove": "Remove",
     "welcome": "Welcome",
     "social_login_coming_soon": "Social login coming soon",
-    "version": "Version 1.0.0"
+    "version": "Version 1.0.0",
+    "actions": {
+      "close": "Close"
+    }
   },
   "auth": {
     "login": "Login",
@@ -65,5 +77,10 @@
     "price": "Price",
     "sold": "Sold",
     "add_to_cart": "Add to cart"
+  },
+  "orders": {
+    "my_orders": "My Orders",
+    "no_orders_yet": "No orders yet",
+    "no_orders_subtitle": "Your order history will appear here when you make your first purchase"
   }
 }

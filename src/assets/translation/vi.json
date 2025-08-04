@@ -9,14 +9,26 @@
     "enter_discount_code": "Nhập mã giảm giá",
     "apply": "Áp dụng",
     "total": "Tổng cộng",
-    "checkout": "Thanh toán"
+    "checkout": "Thanh toán",
+    "confirm_order": "Xác nhận đơn hàng",
+    "confirm_order_message": "Bạn có chắc chắn muốn đặt đơn hàng này?",
+    "creating_order": "Đang tạo...",
+    "order_created_successfully": "Đơn hàng đã được tạo thành công!",
+    "order_code": "Mã đơn hàng",
+    "view_orders": "Xem đơn hàng",
+    "continue_shopping": "Tiếp tục mua sắm",
+    "cart_empty_error": "Giỏ hàng trống",
+    "order_creation_error": "Không thể tạo đơn hàng. Vui lòng thử lại."
   },
   "common": {
     "cancel": "Hủy",
     "remove": "Xóa",
     "welcome": "Chào mừng",
     "social_login_coming_soon": "Đăng nhập mạng xã hội sắp có",
-    "version": "Phiên bản 1.0.0"
+    "version": "Phiên bản 1.0.0",
+    "actions": {
+      "close": "Đóng"
+    }
   },
   "auth": {
     "login": "Đăng nhập",
@@ -65,5 +77,10 @@
     "price": "Giá",
     "sold": "Đã bán",
     "add_to_cart": "Thêm vào giỏ"
+  },
+  "orders": {
+    "my_orders": "Đơn hàng của tôi",
+    "no_orders_yet": "Chưa có đơn hàng nào",
+    "no_orders_subtitle": "Lịch sử đơn hàng của bạn sẽ xuất hiện ở đây khi bạn thực hiện mua hàng đầu tiên"
   }
 }

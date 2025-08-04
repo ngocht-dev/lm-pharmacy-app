@@ -24,8 +24,7 @@ const ProfileScreen = ({ navigation }: any) => {
   const { data: userInfo } = useUserInfo();
 
   const handleMyOrders = () => {
-    // TODO: Navigate to orders screen
-    console.log('Navigate to My Orders');
+    navigation.navigate('MyOrdersScreen');
   };
 
   const handleCategories = () => {

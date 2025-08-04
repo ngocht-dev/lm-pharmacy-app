@@ -1,6 +1,7 @@
 import { useAuthStore } from '@/app/appStore';
 import LoginScreen from '@/modules/auth/screens/LoginScreen';
-import CheckoutScreen from '@/modules/orders/screens/CheckoutScreen';
+import MyOrdersScreen from '@/modules/orders/screens/MyOrdersScreen';
+import OrdersScreen from '@/modules/orders/screens/OrdersScreen';
 import ProductScreen from '@/modules/product/screens/ProductScreen';
 import ProfileScreen from '@/modules/profile/screens/ProfileScreens';
 import { navigationRef } from '@/utils/navigation';
@@ -8,19 +9,16 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
 import BottomTabNavigator from './BottomTabNavigator';
-import ROUTES from './routes';
 import { RootStackParamList } from './types';
 
-export const Stack = createStackNavigator<RootStackParamList>();
+const Stack = createStackNavigator<RootStackParamList>();
 
-function RootNavigation() {
-  const { isAuthenticated } = useAuthStore();
+const getInitialRouteName = () => {
+  const { isAuthenticated } = useAuthStore.getState();
+  return isAuthenticated ? 'Dashboard' : 'LoginScreen';
+};
 
-  const getInitialRouteName = () => {
-    console.log('khanh isAuthenticated', isAuthenticated);
-    return isAuthenticated ? 'Dashboard' : ROUTES.AUTH.LOGIN;
-  };
-
+const RootNavigation = () => {
   return (
     <NavigationContainer ref={navigationRef}>
       <Stack.Navigator
@@ -29,14 +27,15 @@ function RootNavigation() {
         }}
         initialRouteName={getInitialRouteName()}
       >
-        <Stack.Screen name={ROUTES.AUTH.LOGIN} component={LoginScreen} />
+        <Stack.Screen name="LoginScreen" component={LoginScreen} />
         <Stack.Screen name="Dashboard" component={BottomTabNavigator} />
         <Stack.Screen name="ProductScreen" component={ProductScreen} />
-        <Stack.Screen name="CheckoutScreen" component={CheckoutScreen} />
+        <Stack.Screen name="OrdersScreen" component={OrdersScreen} />
         <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
+        <Stack.Screen name="MyOrdersScreen" component={MyOrdersScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
-}
+};
 
 export default RootNavigation;
