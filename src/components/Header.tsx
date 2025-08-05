@@ -1,5 +1,5 @@
-import Icons from '@/assets/icons';
 import colors from '@/constants/colors';
+import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import React, { memo } from 'react';
 import {
@@ -50,12 +50,14 @@ const Header = ({
             }
           }}
         >
-          {backIcon ?? <Icons.ChevronLeft stroke={colors.mainSub2} />}
+          {backIcon ?? (
+            <Ionicons name="chevron-back" size={24} color={colors.text} />
+          )}
         </TouchableOpacity>
       ) : (
         <View style={{ width: 16 }} />
       )}
-      <AppText size={17} style={titleStyle}>
+      <AppText size={17} style={[styles.backTitle, titleStyle]}>
         {title}
       </AppText>
       {renderRight ? (
@@ -84,7 +86,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   backTitle: {
-    marginLeft: 12,
+    flex: 1,
+    textAlign: 'center',
+    fontWeight: '600',
   },
   iconDarkMode: {
     backgroundColor: colors.neutral0,

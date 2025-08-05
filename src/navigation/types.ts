@@ -1,3 +1,4 @@
+import { OrderResponse } from '@/modules/orders/services/orders.services';
 import { NavigatorScreenParams } from '@react-navigation/native';
 import { StackScreenProps } from '@react-navigation/stack';
 
@@ -38,6 +39,7 @@ export type RootStackParamList = {
   OrdersScreen: undefined;
   ProfileScreen: undefined;
   MyOrdersScreen: undefined;
+  OrderDetailScreen: { orderDetail: OrderResponse };
 } & AuthParamList;
 
 // Screen Props Types

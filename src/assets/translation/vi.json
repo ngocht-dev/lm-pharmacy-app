@@ -81,6 +81,32 @@
   "orders": {
     "my_orders": "Đơn hàng của tôi",
     "no_orders_yet": "Chưa có đơn hàng nào",
-    "no_orders_subtitle": "Lịch sử đơn hàng của bạn sẽ xuất hiện ở đây khi bạn thực hiện mua hàng đầu tiên"
+    "no_orders_subtitle": "Lịch sử đơn hàng của bạn sẽ xuất hiện ở đây khi bạn thực hiện mua hàng đầu tiên",
+    "order_id": "Mã đơn hàng",
+    "order_value": "Giá trị đơn hàng: <0>{{total}}</0>",
+    "total_products": "Số lượng sản phẩm: <0>{{total}}</0>",
+    "order_status": "Trạng thái",
+    "status": {
+      "cancel": "Đã huỷ",
+      "confirmed": "Đã xác nhận",
+      "shipped": "Đã chuyển đi",
+      "processing": "Đang xử lí",
+      "pending": "Chờ xử lí",
+      "delivered": "Đã giao"
+    }
+  },
+  "order_detail": {
+    "title": "Chi tiết đơn hàng",
+    "product": "Sản phẩm",
+    "estimated_price": "Tạm tính",
+    "fee": "Phí",
+    "discount": "Giảm giá",
+    "total_price": "Tổng tiền",
+    "sale_method": {
+      "title": "Phương thức mua hàng",
+      "online": "Trực tiếp",
+      "direct": "Online"
+    },
+    "reorder": "Đặt lại"
   }
 }

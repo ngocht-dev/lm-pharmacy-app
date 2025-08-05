@@ -11,7 +11,9 @@ export interface CartItem {
 interface CartStore {
   items: CartItem[];
   totalItems: number;
-  addToCart: (item: Omit<CartItem, 'quantity'>) => void;
+  addToCart: (
+    item: Omit<CartItem, 'quantity'> & Partial<Pick<CartItem, 'quantity'>>
+  ) => void;
   removeFromCart: (itemId: string) => void;
   updateQuantity: (itemId: string, quantity: number) => void;
   clearCart: () => void;
@@ -37,10 +39,17 @@ export const useCartStore = create<CartStore>((set, get) => ({
         };
       } else {
         // Add new item
-        const newItem = { ...item, quantity: 1 };
+        const quantity = isNaN(parseInt(`${item?.quantity}`))
+          ? 1
+          : parseInt(`${item?.quantity}`);
+
+        const newItem = {
+          ...item,
+          quantity,
+        };
         return {
           items: [...state.items, newItem],
-          totalItems: state.totalItems + 1,
+          totalItems: state.totalItems + quantity,
         };
       }
     });

@@ -1,6 +1,7 @@
 import { useAuthStore } from '@/app/appStore';
 import LoginScreen from '@/modules/auth/screens/LoginScreen';
 import MyOrdersScreen from '@/modules/orders/screens/MyOrdersScreen';
+import OrderDetailScreen from '@/modules/orders/screens/OrderDetailScreen';
 import OrdersScreen from '@/modules/orders/screens/OrdersScreen';
 import ProductScreen from '@/modules/product/screens/ProductScreen';
 import ProfileScreen from '@/modules/profile/screens/ProfileScreens';
@@ -9,6 +10,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
 import BottomTabNavigator from './BottomTabNavigator';
+import ROUTES from './routes';
 import { RootStackParamList } from './types';
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -33,6 +35,10 @@ const RootNavigation = () => {
         <Stack.Screen name="OrdersScreen" component={OrdersScreen} />
         <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
         <Stack.Screen name="MyOrdersScreen" component={MyOrdersScreen} />
+        <Stack.Screen
+          name={ROUTES.ORDER_DETAIL}
+          component={OrderDetailScreen}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

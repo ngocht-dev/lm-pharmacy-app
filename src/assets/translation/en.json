@@ -81,6 +81,32 @@
   "orders": {
     "my_orders": "My Orders",
     "no_orders_yet": "No orders yet",
-    "no_orders_subtitle": "Your order history will appear here when you make your first purchase"
+    "no_orders_subtitle": "Your order history will appear here when you make your first purchase",
+    "order_id": "Order code",
+    "order_value": "Order value: <0>{{total}}</0>",
+    "total_products": "Total product: <0>{{total}}</0>",
+    "order_status": "Order Status",
+    "status": {
+      "cancel": "Cancel",
+      "confirmed": "Confirmed",
+      "shipped": "Shipped",
+      "processing": "Processing",
+      "pending": "Pending",
+      "delivered": "Delivered"
+    }
+  },
+  "order_detail": {
+    "title": "Order Detail",
+    "product": "Products",
+    "estimated_price": "Estimated price",
+    "fee": "Fee",
+    "discount": "Discount",
+    "total_price": "Total price",
+    "sale_method": {
+      "title": "Sale method",
+      "online": "Online",
+      "direct": "Direct"
+    },
+    "reorder": "Re-order"
   }
 }

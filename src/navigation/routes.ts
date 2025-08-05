@@ -9,6 +9,7 @@ const ROUTES = {
     MAIN: 'Dashboard',
   },
   MY_ORDERS: 'MyOrdersScreen',
+  ORDER_DETAIL: 'OrderDetailScreen',
   PRODUCTS: {
     LIST: 'ProductScreen',
   },
