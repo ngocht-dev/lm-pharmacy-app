@@ -2,6 +2,7 @@ import { useCartStore } from '@/app/cartStore';
 import colors from '@/constants/colors';
 import { RootScreenProps } from '@/navigation/types';
 import useGlobalLoading from '@/store/useGlobalLoading';
+import { parseCurrencyValue } from '@/utils/currencyUtils';
 import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -17,6 +18,7 @@ import {
   SuccessModal,
 } from '../components';
 import { useCreateOrder } from '../hooks';
+import { CreateOrderRequest, SaleMethod } from '../services/orders.services';
 
 type CheckoutScreenProps = RootScreenProps<'OrdersScreen'>;
 
@@ -67,11 +69,11 @@ const OrdersScreen = ({ navigation }: CheckoutScreenProps) => {
         quantity: item.quantity,
       }));
 
-      const orderData = {
+      const orderData: CreateOrderRequest = {
         items: orderItems,
         customer: 1, // TODO: Get from user profile
-        customer_type: 'INDIVIDUAL' as const,
-        sale_method: 'DIRECT' as const,
+        customer_type: 'INDIVIDUAL',
+        sale_method: SaleMethod.DIRECT,
       };
 
       const result = await createOrder(orderData);
@@ -106,7 +108,7 @@ const OrdersScreen = ({ navigation }: CheckoutScreenProps) => {
 
   const calculateTotal = () => {
     return items.reduce((total, item) => {
-      const price = parseInt(item.price.replace(/[^\d]/g, ''));
+      const price = parseCurrencyValue(item.price);
       return total + price * item.quantity;
     }, 0);
   };

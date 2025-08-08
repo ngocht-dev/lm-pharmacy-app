@@ -49,7 +49,7 @@ const ConfirmOrderModal = ({
               {t('checkout.total')}:
             </AppText>
             <AppText size={18} color={colors.main} style={styles.totalValue}>
-              ${total}
+              {total.toLocaleString()}₫
             </AppText>
           </View>
 
