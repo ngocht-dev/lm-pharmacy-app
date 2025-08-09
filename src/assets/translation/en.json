@@ -108,5 +108,12 @@
       "direct": "Direct"
     },
     "reorder": "Re-order"
+  },
+  "updates": {
+    "title": "Update available",
+    "downloading": "Downloading update...",
+    "please_reload": "Please reload to update",
+    "error": "Update has an error, please restart",
+    "reload": "Reload"
   }
 }

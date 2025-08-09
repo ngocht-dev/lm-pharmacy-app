@@ -12,7 +12,6 @@ import {
   CartItem,
   CheckoutFooter,
   ConfirmOrderModal,
-  DiscountSection,
   EmptyCart,
   OrdersHeader,
   SuccessModal,
@@ -129,7 +128,6 @@ const OrdersScreen = ({ navigation }: CheckoutScreenProps) => {
                 onRemoveItem={handleRemoveItem}
               />
             ))}
-            <DiscountSection />
           </>
         ) : (
           <EmptyCart />

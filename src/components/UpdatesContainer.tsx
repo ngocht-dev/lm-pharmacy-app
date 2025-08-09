@@ -1,10 +1,12 @@
 import * as Updates from 'expo-updates';
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Modal, StyleSheet, View } from 'react-native';
 import AppButton from './AppButton';
 import AppText from './AppText';
 
 export default function UpdatesContainer() {
+  const { t } = useTranslation();
   const [showReload, setShowReload] = useState(false);
   const {
     isUpdateAvailable,
@@ -33,18 +35,20 @@ export default function UpdatesContainer() {
       <View style={styles.container}>
         <View style={styles.popup}>
           <View>
-            <AppText style={styles.title}>Update available</AppText>
+            <AppText style={styles.title}>{t('updates.title')}</AppText>
           </View>
-          <View style={{ alignItems: 'center' }}>
+          <View style={styles.centered}>
             <AppText style={styles.message}>
               {isDownloading
-                ? 'Dowloading update...'
+                ? t('updates.downloading')
                 : downloadedUpdate
-                  ? 'Please reload to update'
-                  : 'Update has error, please restart'}
+                  ? t('updates.please_reload')
+                  : t('updates.error')}
             </AppText>
           </View>
-          {isUpdatePending && <AppButton text={'Reload'} onPress={onReload} />}
+          {isUpdatePending && (
+            <AppButton text={t('updates.reload')} onPress={onReload} />
+          )}
         </View>
       </View>
     </Modal>
@@ -75,5 +79,8 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 17,
     fontWeight: 600,
+  },
+  centered: {
+    alignItems: 'center',
   },
 });

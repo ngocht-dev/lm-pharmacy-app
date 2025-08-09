@@ -7,6 +7,7 @@ import Gap from '@/components/Gap';
 import OverlaySpinner from '@/components/OverlaySpinner';
 import ScreenContainer from '@/components/ScreenContainer';
 import colors from '@/constants/colors';
+import { getAppVersion } from '@/utils/common';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Image, ScrollView, StyleSheet } from 'react-native';
@@ -75,7 +76,7 @@ const LoginScreen = () => {
         )}
         <Gap />
       </ScrollView>
-      <AppText style={styles.centerText}>{t('common.version')}</AppText>
+      <AppText style={styles.centerText}>{getAppVersion()}</AppText>
       <ErrorPopup
         show={Boolean(message)}
         message={message}

@@ -8,6 +8,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import AppInitializer from './app/AppInitializer';
 import GlobalLoading from './components/GlobalLoading';
 import ToastContainer from './components/ToastContainer';
+import UpdatesContainer from './components/UpdatesContainer';
 import RootNavigation from './navigation';
 
 const queryClient = new QueryClient({
@@ -37,6 +38,7 @@ export default function MainApp() {
         </AppInitializer>
         <GlobalLoading />
         <ToastContainer />
+        <UpdatesContainer />
       </SafeAreaProvider>
     </QueryClientProvider>
   );

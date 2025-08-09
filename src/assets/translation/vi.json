@@ -108,5 +108,12 @@
       "direct": "Online"
     },
     "reorder": "Đặt lại"
+  },
+  "updates": {
+    "title": "Có bản cập nhật",
+    "downloading": "Đang tải bản cập nhật...",
+    "please_reload": "Vui lòng tải lại để cập nhật",
+    "error": "Cập nhật gặp lỗi, vui lòng khởi động lại",
+    "reload": "Tải lại"
   }
 }
