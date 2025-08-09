@@ -2,7 +2,6 @@ import Icons from '@/assets/icons';
 import AppButton from '@/components/AppButton';
 import AppText from '@/components/AppText';
 import AppTextInput from '@/components/AppTextInput';
-import AppTouchable from '@/components/AppTouchable';
 import ErrorPopup from '@/components/ErrorPopup';
 import Gap from '@/components/Gap';
 import OverlaySpinner from '@/components/OverlaySpinner';
@@ -19,18 +18,8 @@ const LoginScreen = () => {
   const { t } = useTranslation();
 
   const handleLogin = () => {
-    setMessage(''); // Clear any previous messages
+    setMessage('');
     submit();
-  };
-
-  const handleForgotPassword = () => {
-    // TODO: Implement forgot password logic
-    console.log('Forgot password');
-  };
-
-  const handleSignUp = () => {
-    // TODO: Navigate to sign up screen
-    console.log('Navigate to sign up');
   };
 
   return (
@@ -85,18 +74,7 @@ const LoginScreen = () => {
           </AppText>
         )}
         <Gap />
-        <AppTouchable onPress={handleForgotPassword}>
-          <AppText color={colors.main} size={17}>
-            {t('auth.forgot_password')}
-          </AppText>
-        </AppTouchable>
       </ScrollView>
-      <AppTouchable activeOpacity={0.8} onPress={handleSignUp}>
-        <AppText style={styles.bottomText}>
-          {t('auth.dont_have_account')}{' '}
-          <AppText color={colors.main}>{t('auth.sign_up')}</AppText>
-        </AppText>
-      </AppTouchable>
       <AppText style={styles.centerText}>{t('common.version')}</AppText>
       <ErrorPopup
         show={Boolean(message)}
@@ -116,11 +94,6 @@ const styles = StyleSheet.create({
   },
   content: {
     alignItems: 'center',
-  },
-
-  bottomText: {
-    textAlign: 'center',
-    marginBottom: 12,
   },
   centerText: {
     textAlign: 'center',
