@@ -27,35 +27,7 @@ const ProfileScreen = ({ navigation }: any) => {
     navigation.navigate('MyOrdersScreen');
   };
 
-  const handleCategories = () => {
-    // TODO: Navigate to categories screen
-    console.log('Navigate to Categories');
-  };
-
-  const handleSocialAccount = () => {
-    // TODO: Navigate to social account screen
-    console.log('Navigate to Social Account');
-  };
-
-  const handleChangePassword = () => {
-    // TODO: Navigate to change password screen
-    console.log('Navigate to Change Password');
-  };
-
-  const handleTermsOfService = () => {
-    // TODO: Navigate to terms of service screen
-    console.log('Navigate to Terms of Service');
-  };
-
-  const handlePrivacyPolicy = () => {
-    // TODO: Navigate to privacy policy screen
-    console.log('Navigate to Privacy Policy');
-  };
-
-  const handleDeleteAccount = () => {
-    // TODO: Show delete account confirmation
-    console.log('Show Delete Account Confirmation');
-  };
+  const handleChangePassword = () => {};
 
   const handleSignOut = () => {
     signOut();
@@ -70,46 +42,11 @@ const ProfileScreen = ({ navigation }: any) => {
       onPress: handleMyOrders,
     },
     {
-      id: 'categories',
-      title: t('profile.categories'),
-      icon: 'pie-chart-outline',
-      iconType: 'Ionicons',
-      onPress: handleCategories,
-    },
-    {
-      id: 'social',
-      title: t('profile.social_account'),
-      icon: 'link',
-      iconType: 'Ionicons',
-      onPress: handleSocialAccount,
-    },
-    {
       id: 'password',
       title: t('profile.change_password'),
       icon: 'lock-closed-outline',
       iconType: 'Ionicons',
       onPress: handleChangePassword,
-    },
-    {
-      id: 'terms',
-      title: t('profile.terms_of_service'),
-      icon: 'document-text-outline',
-      iconType: 'Ionicons',
-      onPress: handleTermsOfService,
-    },
-    {
-      id: 'privacy',
-      title: t('profile.privacy_policy'),
-      icon: 'document-text-outline',
-      iconType: 'Ionicons',
-      onPress: handlePrivacyPolicy,
-    },
-    {
-      id: 'delete',
-      title: t('profile.delete_account'),
-      icon: 'trash-outline',
-      iconType: 'Ionicons',
-      onPress: handleDeleteAccount,
     },
     {
       id: 'signout',

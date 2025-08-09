@@ -60,6 +60,7 @@ const ProductScreen = ({ navigation, route }: ProductScreenProps) => {
       name: product.name,
       image:
         product.thumbnail_url ||
+        product?.photo_urls[0] ||
         'https://dummyimage.com/150x150/90ee90/ffffff&text=Product',
       price: `${parseInt(product.sale_price).toLocaleString()}₫`,
       originalPrice:

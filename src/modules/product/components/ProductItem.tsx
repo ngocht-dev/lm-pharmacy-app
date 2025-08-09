@@ -2,7 +2,7 @@ import { useCartStore } from '@/app/cartStore';
 import AppText from '@/components/AppText';
 import colors from '@/constants/colors';
 import { safeText } from '@/utils/stringUtils';
-import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import React from 'react';
 import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 
@@ -63,19 +63,8 @@ const ProductItem = ({ product, onAddToCart }: ProductItemProps) => {
         <Image
           source={{ uri: safeProduct.image }}
           style={styles.productImage}
+          resizeMode="contain"
         />
-        {safeProduct.weight && (
-          <View style={styles.weightTag}>
-            <AppText size={10} color={colors.white}>
-              {safeProduct.weight}
-            </AppText>
-            {safeProduct.ageRange && (
-              <AppText size={10} color={colors.white}>
-                {safeProduct.ageRange}
-              </AppText>
-            )}
-          </View>
-        )}
         {safeProduct.discount && (
           <View style={styles.discountTag}>
             <AppText size={10} color={colors.white}>
@@ -94,50 +83,50 @@ const ProductItem = ({ product, onAddToCart }: ProductItemProps) => {
         >
           {safeProduct.name}
         </AppText>
-
-        <View style={styles.ratingContainer}>
-          {[...Array(5)].map((_, index) => (
-            <Ionicons key={index} name="star" size={12} color="#FFD700" />
-          ))}
-        </View>
-
-        <AppText size={10} color={colors.neutral3} style={styles.soldCount}>
-          {safeProduct.soldCount}
-        </AppText>
-
-        <View style={styles.priceContainer}>
-          <AppText size={14} color={colors.error} style={styles.price}>
-            {safeProduct.price}
-          </AppText>
-          {safeProduct.originalPrice && (
-            <AppText
-              size={12}
-              color={colors.neutral3}
-              style={styles.originalPrice}
-            >
-              {safeProduct.originalPrice}
+        <View style={styles.footerRow}>
+          <View style={styles.priceContainer}>
+            <AppText size={14} color={colors.error} style={styles.price}>
+              {safeProduct.price}
             </AppText>
-          )}
+            {safeProduct.originalPrice ? (
+              <AppText
+                size={12}
+                color={colors.neutral3}
+                style={styles.originalPrice}
+              >
+                {safeProduct.originalPrice}
+              </AppText>
+            ) : (
+              <AppText
+                size={12}
+                color="transparent"
+                style={styles.originalPrice}
+              >
+                0
+              </AppText>
+            )}
+          </View>
+
+          <TouchableOpacity
+            style={styles.addToCartButton}
+            onPress={handleAddToCart}
+            accessibilityLabel="add-to-cart"
+          >
+            <MaterialCommunityIcons
+              name="cart-outline"
+              size={20}
+              color={colors.main}
+            />
+            {safeProduct.inCart > 0 && (
+              <View style={styles.cartBadge}>
+                <AppText size={8} color={colors.white}>
+                  {String(safeProduct.inCart)}
+                </AppText>
+              </View>
+            )}
+          </TouchableOpacity>
         </View>
       </View>
-
-      <TouchableOpacity
-        style={styles.addToCartButton}
-        onPress={handleAddToCart}
-      >
-        <MaterialCommunityIcons
-          name="cart-outline"
-          size={20}
-          color={colors.main}
-        />
-        {safeProduct.inCart > 0 && (
-          <View style={styles.cartBadge}>
-            <AppText size={8} color={colors.white}>
-              {String(safeProduct.inCart)}
-            </AppText>
-          </View>
-        )}
-      </TouchableOpacity>
     </View>
   );
 };
@@ -170,15 +159,6 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     backgroundColor: colors.neutral0,
   },
-  weightTag: {
-    position: 'absolute',
-    top: 4,
-    left: 4,
-    backgroundColor: colors.main,
-    paddingHorizontal: 6,
-    paddingVertical: 2,
-    borderRadius: 4,
-  },
   discountTag: {
     position: 'absolute',
     top: 4,
@@ -190,23 +170,23 @@ const styles = StyleSheet.create({
   },
   productInfo: {
     flex: 1,
+    justifyContent: 'space-between',
   },
   productName: {
     fontWeight: '500',
-    marginBottom: 4,
+    marginBottom: 16,
     lineHeight: 16,
   },
-  ratingContainer: {
+  footerRow: {
     flexDirection: 'row',
-    marginBottom: 4,
-  },
-  soldCount: {
-    marginBottom: 4,
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
   priceContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 4,
+    marginBottom: 0,
   },
   price: {
     fontWeight: '600',
@@ -215,9 +195,6 @@ const styles = StyleSheet.create({
     textDecorationLine: 'line-through',
   },
   addToCartButton: {
-    position: 'absolute',
-    bottom: 12,
-    right: 12,
     backgroundColor: colors.mainSub1,
     width: 32,
     height: 32,

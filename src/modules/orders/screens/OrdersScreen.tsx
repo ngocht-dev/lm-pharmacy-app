@@ -3,7 +3,6 @@ import colors from '@/constants/colors';
 import { useUserInfo } from '@/modules/auth/hooks';
 import { RootScreenProps } from '@/navigation/types';
 import useGlobalLoading from '@/store/useGlobalLoading';
-import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Alert, ScrollView, StyleSheet, View } from 'react-native';
@@ -28,7 +27,6 @@ const OrdersScreen = ({ navigation }: CheckoutScreenProps) => {
   const insets = useSafeAreaInsets();
   const { mutateAsync: createOrder, isPending } = useCreateOrder();
   const { data: userInfo } = useUserInfo();
-  const nav = useNavigation();
   const { setLoading } = useGlobalLoading();
 
   const [showConfirmModal, setShowConfirmModal] = useState(false);
@@ -98,13 +96,15 @@ const OrdersScreen = ({ navigation }: CheckoutScreenProps) => {
   const handleViewOrders = () => {
     clearCart();
     setShowSuccessModal(false);
-    nav.navigate('MyOrdersScreen' as never);
+    // Replace to avoid keeping this screen (and its Modal) in the stack
+    navigation.replace('MyOrdersScreen');
   };
 
   const handleContinueShopping = () => {
     clearCart();
     setShowSuccessModal(false);
-    nav.navigate('Dashboard' as never);
+    // Replace to ensure the success modal cannot linger over the next screen
+    navigation.replace('Dashboard', { screen: 'HomeScreen' });
   };
 
   const calculateTotal = () => {

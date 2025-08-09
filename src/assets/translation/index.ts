@@ -25,16 +25,16 @@ i18next
     detect: async () => {
       try {
         const language = await storage.getItem(storageKeys.LANGUAGE);
-        return language ?? 'en';
+        return language ?? 'vi';
       } catch {
-        return 'en';
+        return 'vi';
       }
     },
   })
   .use(initReactI18next)
   .init({
     compatibilityJSON: 'v4',
-    fallbackLng: 'en',
+    fallbackLng: 'vi',
     resources: translationResources,
     saveMissing: true, // Must be set to true
     parseMissingKeyHandler: (key: string) => {
