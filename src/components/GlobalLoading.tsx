@@ -9,7 +9,7 @@ const GlobalLoading = () => {
   if (!isLoading) return null;
 
   return (
-    <View style={styles.container}>
+    <View style={[StyleSheet.absoluteFill, styles.container]}>
       <ActivityIndicator size="large" color={colors.main} />
     </View>
   );
@@ -19,9 +19,11 @@ export default GlobalLoading;
 
 const styles = StyleSheet.create({
   container: {
+    position: 'absolute',
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#11111150',
     zIndex: 100,
+    elevation: 100,
   },
 });

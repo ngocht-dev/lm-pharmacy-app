@@ -1,4 +1,5 @@
 import { useCartStore } from '@/app/cartStore';
+import { showErrorMessage } from '@/components/ToastContainer';
 import colors from '@/constants/colors';
 import { useUserInfo } from '@/modules/auth/hooks';
 import { RootScreenProps } from '@/navigation/types';
@@ -63,6 +64,7 @@ const OrdersScreen = ({ navigation }: CheckoutScreenProps) => {
   const handleConfirmOrder = async () => {
     try {
       setLoading(true);
+      setShowConfirmModal(false);
       const orderItems = items.map((item) => ({
         product_id: parseInt(item.id),
         quantity: item.quantity,
@@ -78,12 +80,11 @@ const OrdersScreen = ({ navigation }: CheckoutScreenProps) => {
       const result = await createOrder(orderData);
 
       if (result) {
-        setShowConfirmModal(false);
         setShowSuccessModal(true);
       }
     } catch (error) {
       console.error('Checkout error:', error);
-      Alert.alert('Error', 'Failed to create order. Please try again.');
+      showErrorMessage(t('checkout.order_creation_error'));
     } finally {
       setLoading(false);
     }
@@ -96,14 +97,12 @@ const OrdersScreen = ({ navigation }: CheckoutScreenProps) => {
   const handleViewOrders = () => {
     clearCart();
     setShowSuccessModal(false);
-    // Replace to avoid keeping this screen (and its Modal) in the stack
-    navigation.replace('MyOrdersScreen');
+    navigation.navigate('MyOrdersScreen');
   };
 
   const handleContinueShopping = () => {
     clearCart();
     setShowSuccessModal(false);
-    // Replace to ensure the success modal cannot linger over the next screen
     navigation.replace('Dashboard', { screen: 'HomeScreen' });
   };
 

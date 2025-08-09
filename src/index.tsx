@@ -4,10 +4,10 @@ import React from 'react';
 import { StatusBar } from 'react-native';
 import 'react-native-reanimated';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import Toast from 'react-native-toast-message';
 
 import AppInitializer from './app/AppInitializer';
 import GlobalLoading from './components/GlobalLoading';
+import ToastContainer from './components/ToastContainer';
 import RootNavigation from './navigation';
 
 const queryClient = new QueryClient({
@@ -36,7 +36,7 @@ export default function MainApp() {
           <RootNavigation />
         </AppInitializer>
         <GlobalLoading />
-        <Toast />
+        <ToastContainer />
       </SafeAreaProvider>
     </QueryClientProvider>
   );

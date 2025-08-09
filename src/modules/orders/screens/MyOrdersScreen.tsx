@@ -1,5 +1,4 @@
 import AppText from '@/components/AppText';
-import OverlaySpinner from '@/components/OverlaySpinner';
 import ScreenContainer from '@/components/ScreenContainer';
 import colors from '@/constants/colors';
 import { RootScreenProps } from '@/navigation/types';
@@ -7,7 +6,7 @@ import { Feather } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { useMemo } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
-import { StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 import { FlatList, Pressable } from 'react-native-gesture-handler';
 import { OrderStatusChip } from '../components/OrderStatusChip';
 import { useOrders } from '../hooks/useOrders';
@@ -80,14 +79,8 @@ const OrderItem = ({ orderDetail }: { orderDetail: OrderResponse }) => {
 
 const MyOrdersScreen = () => {
   const { t } = useTranslation();
-  const {
-    data,
-    isPending,
-    refetch,
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
-  } = useOrders();
+  const { data, refetch, fetchNextPage, hasNextPage, isFetchingNextPage } =
+    useOrders();
 
   const orders = useMemo(
     () => data?.pages.flatMap((item) => item.data),
@@ -104,9 +97,17 @@ const MyOrdersScreen = () => {
     refetch();
   };
 
+  const renderLoadingFooter = () => {
+    if (!isFetchingNextPage) return null;
+    return (
+      <View style={styles.loadingFooter}>
+        <ActivityIndicator size="large" color={colors.main} />
+      </View>
+    );
+  };
+
   return (
     <ScreenContainer headerProp={{ title: t('orders.my_orders') }}>
-      {isPending && <OverlaySpinner />}
       <FlatList
         data={orders}
         renderItem={({ item }) => <OrderItem orderDetail={item} />}
@@ -122,6 +123,7 @@ const MyOrdersScreen = () => {
         onEndReachedThreshold={0.1}
         contentContainerStyle={styles.listContainer}
         ListEmptyComponent={<EmptyOrder />}
+        ListFooterComponent={renderLoadingFooter}
       />
     </ScreenContainer>
   );
@@ -182,5 +184,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 10,
+  },
+  loadingFooter: {
+    paddingVertical: 20,
+    alignItems: 'center',
   },
 });
