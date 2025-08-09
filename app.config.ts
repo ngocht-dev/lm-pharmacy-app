@@ -32,6 +32,12 @@ const config: ExpoConfig = {
     bundler: 'metro',
     favicon: './assets/images/favicon.png',
   },
+  updates: {
+    url: 'https://u.expo.dev/def666df-9354-4c8b-93c8-4bc89abefa1a',
+    requestHeaders: {
+      'expo-channel-name': process.env.UPDATE_CHANNEL,
+    },
+  },
   plugins: [
     [
       'expo-splash-screen',
