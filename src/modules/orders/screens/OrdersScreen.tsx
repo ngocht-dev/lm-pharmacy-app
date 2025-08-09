@@ -1,8 +1,8 @@
 import { useCartStore } from '@/app/cartStore';
 import colors from '@/constants/colors';
+import { useUserInfo } from '@/modules/auth/hooks';
 import { RootScreenProps } from '@/navigation/types';
 import useGlobalLoading from '@/store/useGlobalLoading';
-import { parseCurrencyValue } from '@/utils/currencyUtils';
 import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -27,6 +27,7 @@ const OrdersScreen = ({ navigation }: CheckoutScreenProps) => {
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
   const { mutateAsync: createOrder, isPending } = useCreateOrder();
+  const { data: userInfo } = useUserInfo();
   const nav = useNavigation();
   const { setLoading } = useGlobalLoading();
 
@@ -71,7 +72,7 @@ const OrdersScreen = ({ navigation }: CheckoutScreenProps) => {
 
       const orderData: CreateOrderRequest = {
         items: orderItems,
-        customer: 1, // TODO: Get from user profile
+        customer: userInfo?.id || 1,
         customer_type: 'INDIVIDUAL',
         sale_method: SaleMethod.DIRECT,
       };
@@ -108,7 +109,7 @@ const OrdersScreen = ({ navigation }: CheckoutScreenProps) => {
 
   const calculateTotal = () => {
     return items.reduce((total, item) => {
-      const price = parseCurrencyValue(item.price);
+      const price = parseInt(item.price.replace(/[^\d]/g, ''));
       return total + price * item.quantity;
     }, 0);
   };

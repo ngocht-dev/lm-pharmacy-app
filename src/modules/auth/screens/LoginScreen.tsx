@@ -10,7 +10,7 @@ import ScreenContainer from '@/components/ScreenContainer';
 import colors from '@/constants/colors';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { Image, ScrollView, StyleSheet } from 'react-native';
 import { useSignIn } from '../hooks';
 
 const LoginScreen = () => {
@@ -43,15 +43,16 @@ const LoginScreen = () => {
         bounces={false}
         showsVerticalScrollIndicator={false}
       >
-        <View style={styles.logoContainer}>
-          <Icons.Logo />
-        </View>
         <Gap />
         <AppText color={colors.neutral3} size={20}>
           {t('common.welcome')}
         </AppText>
         <Gap />
-        <Icons.LogoKolfund />
+        <Image
+          source={require('@/assets/images/logo.png')}
+          style={styles.logoImage}
+          resizeMode="cover"
+        />
         <Gap />
         <AppTextInput
           name="email"
@@ -89,12 +90,6 @@ const LoginScreen = () => {
             {t('auth.forgot_password')}
           </AppText>
         </AppTouchable>
-        <View style={styles.loginSocial}>
-          {/* TODO: Add GoogleAuth and AppleOAuth components when ready */}
-          <AppText color={colors.neutral3} size={14}>
-            {t('common.social_login_coming_soon')}
-          </AppText>
-        </View>
       </ScrollView>
       <AppTouchable activeOpacity={0.8} onPress={handleSignUp}>
         <AppText style={styles.bottomText}>
@@ -122,14 +117,7 @@ const styles = StyleSheet.create({
   content: {
     alignItems: 'center',
   },
-  logoContainer: {
-    width: 80,
-    height: 80,
-    borderRadius: 12,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: colors.mainSub1,
-  },
+
   bottomText: {
     textAlign: 'center',
     marginBottom: 12,
@@ -137,11 +125,12 @@ const styles = StyleSheet.create({
   centerText: {
     textAlign: 'center',
   },
-  loginSocial: {
-    flexDirection: 'row',
-  },
   errorText: {
     textAlign: 'center',
     marginTop: 8,
+  },
+  logoImage: {
+    width: 200,
+    height: 100,
   },
 });
