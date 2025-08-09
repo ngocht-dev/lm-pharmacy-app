@@ -5,7 +5,7 @@ const config: ExpoConfig = {
   slug: 'lm-pharmacy-app',
   version: process.env.APP_VERSION as string,
   runtimeVersion: process.env.APP_VERSION as string,
-  owner: 'lmpharmacy',
+  owner: 'khanhnguyen4999',
   scheme: 'lmpharmacyapp',
   orientation: 'portrait',
   icon: './assets/images/icon.png',
