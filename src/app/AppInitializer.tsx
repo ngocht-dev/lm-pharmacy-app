@@ -1,5 +1,6 @@
 import colors from '@/constants/colors';
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { ActivityIndicator, StyleSheet, View } from 'react-native';
 import { checkAuthStatus } from './authService';
 import { initializeStores } from './initializeStores';
@@ -10,10 +11,14 @@ interface AppInitializerProps {
 
 const AppInitializer = ({ children }: AppInitializerProps) => {
   const [isInitialized, setIsInitialized] = useState(false);
+  const { i18n } = useTranslation();
 
   useEffect(() => {
     const initializeApp = async () => {
       try {
+        // Force set language to Vietnamese
+        await i18n.changeLanguage('vi');
+
         // Initialize stores first
         await initializeStores();
 
@@ -30,7 +35,7 @@ const AppInitializer = ({ children }: AppInitializerProps) => {
     };
 
     initializeApp();
-  }, []);
+  }, [i18n]);
 
   if (!isInitialized) {
     return (

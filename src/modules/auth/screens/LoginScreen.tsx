@@ -24,7 +24,7 @@ const LoginScreen = () => {
   };
 
   return (
-    <ScreenContainer>
+    <ScreenContainer hideHeader={true}>
       {isLoading && <OverlaySpinner />}
       <ScrollView
         style={styles.container}
