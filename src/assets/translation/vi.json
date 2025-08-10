@@ -37,7 +37,11 @@
     "sign_in": "Đăng nhập",
     "forgot_password": "Quên mật khẩu?",
     "dont_have_account": "Chưa có tài khoản?",
-    "sign_up": "Tạo tài khoản mới"
+    "sign_up": "Tạo tài khoản mới",
+    "errors": {
+      "invalid_response": "Đăng nhập thất bại. Phản hồi không hợp lệ từ máy chủ.",
+      "try_again": "Đăng nhập thất bại. Vui lòng thử lại."
+    }
   },
   "dashboard": {
     "home": "Trang chủ",

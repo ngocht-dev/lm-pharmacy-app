@@ -37,7 +37,11 @@
     "sign_in": "Sign In",
     "forgot_password": "Forgot your password?",
     "dont_have_account": "Don't have an account?",
-    "sign_up": "Create new account"
+    "sign_up": "Create new account",
+    "errors": {
+      "invalid_response": "Login failed. Invalid response from server.",
+      "try_again": "Login failed. Please try again."
+    }
   },
   "dashboard": {
     "home": "Home",

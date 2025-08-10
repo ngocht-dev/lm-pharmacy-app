@@ -52,11 +52,6 @@ const useSignIn = () => {
               refresh_token
             );
 
-            // Reset to dashboard after successful login
-            console.log(
-              'Login successful, resetting to dashboard',
-              access_token
-            );
             navigation.reset({
               index: 0,
               routes: [{ name: 'Dashboard' }],
@@ -64,12 +59,12 @@ const useSignIn = () => {
 
             return;
           } else {
-            setMessage('Login failed. Invalid response from server.');
+            setMessage(t('auth.errors.invalid_response'));
           }
-          setMessage('Login failed. Please try again.');
+          setMessage(t('auth.errors.try_again'));
         }
       } catch {
-        setMessage('Login failed. Please try again.');
+        setMessage(t('auth.errors.try_again'));
       }
     }
   );

@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ActivityIndicator, FlatList, StyleSheet, View } from 'react-native';
 import { ProductHeader, ProductItem } from '../components';
+import type { Product } from '../components/ProductItem';
 import { useProducts } from '../hooks';
 
 type ProductScreenProps = RootScreenProps<'ProductScreen'>;
@@ -47,7 +48,6 @@ const ProductScreen = ({ navigation, route }: ProductScreenProps) => {
 
   const handleSearch = (text: string) => {
     setSearchText(text);
-    console.log('Searching for:', text);
   };
 
   // Flatten all pages data
@@ -80,7 +80,7 @@ const ProductScreen = ({ navigation, route }: ProductScreenProps) => {
     return transformed;
   });
 
-  const renderProductItem = ({ item }: { item: any }) => (
+  const renderProductItem = ({ item }: { item: Product }) => (
     <View style={styles.productItemWrapper}>
       <ProductItem product={item} />
     </View>
@@ -217,10 +217,10 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
   },
   productItemWrapper: {
-    width: '48%', // Fixed width to ensure 2 columns
+    width: '48%',
     marginBottom: 16,
   },
   columnWrapper: {
-    justifyContent: 'space-between', // Distribute items evenly
+    justifyContent: 'space-between',
   },
 });
