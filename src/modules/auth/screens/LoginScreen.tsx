@@ -45,13 +45,13 @@ const LoginScreen = () => {
         />
         <Gap />
         <AppTextInput
-          name="email"
+          name="username"
           IconLeft={Icons.InputEmail}
-          placeholder={t('auth.email')}
+          placeholder={t('auth.username')}
           keyboardType="email-address"
           autoCapitalize="none"
           onChangeField={onChangeField}
-          error={errors.email}
+          error={errors.username}
         />
         <Gap.Small />
         <AppTextInput

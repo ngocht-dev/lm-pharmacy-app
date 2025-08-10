@@ -30,9 +30,13 @@
       "close": "Close"
     }
   },
+  "validation": {
+    "required": "Required field",
+    "min_length": "Min length is {{length}}"
+  },
   "auth": {
     "login": "Login",
-    "email": "Email Address",
+    "username": "Username",
     "password": "Password",
     "sign_in": "Sign In",
     "forgot_password": "Forgot your password?",

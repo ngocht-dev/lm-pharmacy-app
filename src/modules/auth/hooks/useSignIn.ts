@@ -16,7 +16,8 @@ const useSignIn = () => {
 
   const { errors, onChangeField, submit } = useForm(
     {
-      email: {
+      username: {
+        notEmpty: true,
         validator: () => {
           //   const isValid = validateEmail(text);
           //   if (!isValid) {
@@ -35,7 +36,7 @@ const useSignIn = () => {
 
       try {
         const result = await loginMutation({
-          username: values.email,
+          username: values.username,
           password: values.password,
         });
 
@@ -66,7 +67,8 @@ const useSignIn = () => {
       } catch {
         setMessage(t('auth.errors.try_again'));
       }
-    }
+    },
+    t
   );
 
   return {

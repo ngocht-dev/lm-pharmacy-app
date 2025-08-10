@@ -17,7 +17,8 @@ export type FieldValue<Values> = {
 };
 function useForm<Values extends Fields>(
   fields: Values,
-  onSubmit: (values: FieldValue<Values>) => void
+  onSubmit: (values: FieldValue<Values>) => void,
+  t?: any
 ) {
   const [errors, setErrors] = useState<Errors<Values>>(
     Object.keys(fields).reduce(
@@ -39,11 +40,13 @@ function useForm<Values extends Fields>(
       const value = values[key] as string;
       if (field.notEmpty && !value) {
         canSubmit = false;
-        errorsTemp[key] = `Required field`;
+        errorsTemp[key] = t ? t('validation.required') : 'Required field';
       }
       if (field.minLength && value.length < field.minLength) {
         canSubmit = false;
-        errorsTemp[key] = `Min length is ${field.minLength}`;
+        errorsTemp[key] = t
+          ? t('validation.min_length', { length: field.minLength })
+          : `Min length is ${field.minLength}`;
       }
       if (field.validator) {
         const error = field.validator(value);

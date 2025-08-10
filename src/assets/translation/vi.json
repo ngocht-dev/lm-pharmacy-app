@@ -30,9 +30,13 @@
       "close": "Đóng"
     }
   },
+  "validation": {
+    "required": "Trường bắt buộc",
+    "min_length": "Độ dài tối thiểu là {{length}}"
+  },
   "auth": {
     "login": "Đăng nhập",
-    "email": "Địa chỉ Email",
+    "username": "Tên đăng nhập",
     "password": "Mật khẩu",
     "sign_in": "Đăng nhập",
     "forgot_password": "Quên mật khẩu?",
