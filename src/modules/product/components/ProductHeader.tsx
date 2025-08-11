@@ -9,6 +9,7 @@ import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { LinearGradient } from 'expo-linear-gradient';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 
 interface ProductHeaderProps {
@@ -22,6 +23,7 @@ const ProductHeader = ({
   onSearchChange,
   onBackPress,
 }: ProductHeaderProps) => {
+  const { t } = useTranslation();
   const { totalItems } = useCartStore();
   const navigation =
     useNavigation<RootScreenProps<'OrdersScreen'>['navigation']>();
@@ -50,7 +52,7 @@ const ProductHeader = ({
         <View style={styles.searchContainer}>
           <AppTextInput
             name="search"
-            placeholder="Tìm kiếm sản phẩm"
+            placeholder={t('product.search_placeholder')}
             value={searchText}
             onChangeField={handleSearchChange}
             style={styles.searchInput}

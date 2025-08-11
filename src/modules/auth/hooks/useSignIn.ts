@@ -1,5 +1,6 @@
 import storageKeys from '@/constants/storageKeys';
 import useForm from '@/hooks/useForm';
+import ROUTES from '@/navigation/routes';
 import { setGlobalAccessToken } from '@/services';
 import storage from '@/utils/storage';
 import { useNavigation } from '@react-navigation/native';
@@ -55,7 +56,7 @@ const useSignIn = () => {
 
             navigation.reset({
               index: 0,
-              routes: [{ name: 'Dashboard' }],
+              routes: [{ name: ROUTES.DASHBOARD.MAIN }],
             });
 
             return;
