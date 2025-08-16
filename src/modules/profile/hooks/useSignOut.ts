@@ -1,4 +1,5 @@
 import { useAuthStore } from '@/app/appStore';
+import { useCartStore } from '@/app/cartStore';
 import storageKeys from '@/constants/storageKeys';
 import { NavigationUtil } from '@/utils/navigation';
 import storage from '@/utils/storage';
@@ -6,6 +7,7 @@ import { useMutation } from '@tanstack/react-query';
 
 export const useSignOut = () => {
   const { setAuthenticated } = useAuthStore();
+  const { clearCart } = useCartStore();
 
   const signOutMutation = useMutation({
     mutationFn: async () => {
@@ -14,9 +16,11 @@ export const useSignOut = () => {
       await storage.removeSecureItem(storageKeys.REFRESH_TOKEN);
       await storage.removeSecureItem(storageKeys.USER_ID);
 
-      // Update store state
+      // Clear Zustand stores
       setAuthenticated(false);
-      console.log('All tokens and user data cleared');
+      clearCart();
+
+      console.log('All tokens, user data, and stores cleared');
     },
     onSuccess: () => {
       // Reset navigation to login screen using NavigationUtil
