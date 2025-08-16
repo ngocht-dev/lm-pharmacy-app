@@ -20,10 +20,6 @@ const useSignIn = () => {
       username: {
         notEmpty: true,
         validator: () => {
-          //   const isValid = validateEmail(text);
-          //   if (!isValid) {
-          //     return 'Please enter a valid email address';
-          //   }
           return null;
         },
       },
